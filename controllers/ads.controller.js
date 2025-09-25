@@ -12,6 +12,7 @@ exports.getAdsId = async (req, res) => {
   try {
     const notice = await Ads.findById(req.params.id);
     if (!notice) res.status(404).json({ message: 'Not found' });
+    res.json(notice);
   } catch (err) {
     res.status(500).json({ message: err });
   }
