@@ -46,3 +46,18 @@ exports.deleteAds = async (req, res) => {
     res.status(500).json({ message: err });
   }
 };
+
+exports.putAds = async (req, res) => {
+  const { title, text, date, image, price, location, aboutSeller } = req.body;
+  try {
+    const notice = await Ads.findByIdAndUpdate(
+      req.params.id,
+      { title, text, date, image, price, location, aboutSeller },
+      { new: true }
+    );
+    if (!notice) res.status(404).json({ message: 'Not Found' });
+    else res.json(notice);
+  } catch (err) {
+    res.status(500).json({ message: err });
+  }
+};
