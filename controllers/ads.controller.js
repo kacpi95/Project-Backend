@@ -16,3 +16,23 @@ exports.getAdsId = async (req, res) => {
     res.status(500).json({ message: err });
   }
 };
+
+exports.postAds = async (req, res) => {
+  const { title, text, date, image, price, location, aboutSeller } = req.body;
+
+  try {
+    const newNotice = new Ads({
+      title,
+      text,
+      date,
+      image,
+      price,
+      location,
+      aboutSeller,
+    });
+    await newNotice.save();
+    res.json(newNotice);
+  } catch (err) {
+    res.status(500).json({ message: err });
+  }
+};
