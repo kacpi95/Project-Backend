@@ -36,3 +36,13 @@ exports.postAds = async (req, res) => {
     res.status(500).json({ message: err });
   }
 };
+
+exports.deleteAds = async (req, res) => {
+  try {
+    const notice = await Ads.findByIdAndDelete(req.params.id);
+    if (!notice) res.status(404).json({ message: 'Not Found' });
+    else res.json(notice);
+  } catch (err) {
+    res.status(500).json({ message: err });
+  }
+};
