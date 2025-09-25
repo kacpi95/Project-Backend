@@ -61,3 +61,13 @@ exports.putAds = async (req, res) => {
     res.status(500).json({ message: err });
   }
 };
+
+exports.getSearchAds = async (req, res) => {
+  const { title } = req.body;
+  try {
+    const notice = await Ads.find({ title: { $regex: title, $options: 'i' } });
+    res.json(notice);
+  } catch (err) {
+    res.status(500).json({ message: err });
+  }
+};
