@@ -3,7 +3,9 @@ const cors = require('cors');
 const path = require('path');
 const mongoose = require('mongoose');
 require('dotenv').config();
+
 const adsRoutes = require('./routes/ads.routes');
+const authRoutes = require('./routes/auth.routes');
 
 const app = express();
 
@@ -12,6 +14,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.use('/api', adsRoutes);
+app.use('/auth', authRoutes);
 
 app.use(express.static(path.join(__dirname, '/client/build')));
 app.get('*', (req, res) => {
