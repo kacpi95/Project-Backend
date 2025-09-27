@@ -41,18 +41,25 @@ exports.login = async (req, res) => {
     ) {
       const user = await User.findOne({ login });
       if (!user) {
-        res.status(401).json({ message: 'Login or password are incorrect' });
+        return res
+          .status(401)
+          .json({ message: 'Login or password are incorrect' });
       } else {
         if (bcrypt.compareSync(password, user.password)) {
           req.session.login = user.login;
-          res.status(200).json({ message: 'Login successful' });
+          return res.status(200).json({ message: 'Login successful' });
         } else {
-          res.status(401).json({ message: 'Login or password are incorrect' });
+          return res
+            .status(401)
+            .json({ message: 'Login or password are incorrect' });
         }
       }
     }
-    res.status(400).json({ message: 'Bad request' });
+    return res.status(400).json({ message: 'Bad request' });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    return res.status(500).json({ message: err.message });
   }
+};
+exports.getUser = async (req, res) => {
+  res.status(201).json({ message: 'Yeah Im logged' });
 };

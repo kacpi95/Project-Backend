@@ -15,7 +15,12 @@ app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(
-  session({ secret: 'xyz567', store: MongoStore.create(mongoose.connection) })
+  session({
+    secret: 'xyz567',
+    store: MongoStore.create({ mongoUrl: process.env.MONGO_URL }),
+    resave: false,
+    saveUninitialized: false,
+  })
 );
 
 app.use('/api', adsRoutes);
