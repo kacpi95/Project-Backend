@@ -29,3 +29,28 @@ exports.register = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+exports.login = async (req, res) => {
+  const { login, password } = req.body;
+  try {
+    if (
+      login &&
+      typeof login === 'string' &&
+      password &&
+      typeof password === 'string'
+    ) {
+      const user = await User.findOne({ login });
+      if (!user) {
+        res.status(401).json({ message: 'Login or password are incorrect' });
+      } else {
+        if (bcrypt.compare(password, user.password)) {
+          res.status(200).json({ message: 'Login successful' });
+        } else {
+          res.status(401).json({ message: 'Login or password are incorrect' });
+        }
+      }
+    }
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
