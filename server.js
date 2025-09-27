@@ -3,6 +3,8 @@ const cors = require('cors');
 const path = require('path');
 const mongoose = require('mongoose');
 require('dotenv').config();
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
 
 const adsRoutes = require('./routes/ads.routes');
 const authRoutes = require('./routes/auth.routes');
@@ -12,6 +14,9 @@ const app = express();
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(
+  session({ secret: 'xyz567', store: MongoStore.create(mongoose.connection) })
+);
 
 app.use('/api', adsRoutes);
 app.use('/auth', authRoutes);
