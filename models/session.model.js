@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const sessionSchema = new mongoose.Schema({
-  expires: { type: DataTransfer, require: true },
+  expires: { type: Date, require: true },
   session: { type: String, require: true },
 });
 
