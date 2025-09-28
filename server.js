@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(
   session({
-    secret: 'xyz567',
+    secret: process.env.SESSION_SECRET,
     cookie: {
       secure: process.env.NODE_ENV == 'production',
     },
