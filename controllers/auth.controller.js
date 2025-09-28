@@ -1,3 +1,4 @@
+const { Session } = require('express-session');
 const User = require('../models/user.model');
 const bcrypt = require('bcrypt');
 
@@ -65,4 +66,15 @@ exports.login = async (req, res) => {
 };
 exports.getUser = async (req, res) => {
   res.status(201).json({ message: 'Yeah Im logged' });
+};
+
+exports.deleteLogout = async (req, res) => {
+  try {
+    if (process.env.NODE_ENV !== 'production') {
+      await Session.deleteMany({});
+      return res.json({ message: 'Sessions deleted' });
+    }
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };

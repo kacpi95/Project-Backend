@@ -1,4 +1,3 @@
-const { Session } = require('express-session');
 const Ads = require('../models/ads.model');
 
 exports.getAll = async (req, res) => {
@@ -76,13 +75,4 @@ exports.getSearchAds = async (req, res) => {
   }
 };
 
-exports.deleteLogout = async (req, res) => {
-  try {
-    if (process.env.NODE_ENV !== 'production') {
-      await Session.deleteMany({});
-      return res.json({ message: 'Sessions deleted' });
-    }
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
+
