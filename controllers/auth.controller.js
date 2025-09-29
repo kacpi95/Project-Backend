@@ -1,16 +1,19 @@
 const { Session } = require('express-session');
 const User = require('../models/user.model');
 const bcrypt = require('bcrypt');
+const getImageFileType = require('../utils/getImageFileType.js');
 
 exports.register = async (req, res) => {
   const { login, password, numberPhone } = req.body;
   try {
+    const fileType = req.file ? await getImageFileType(req.file) : 'unknown';
     if (
       login &&
       typeof login === 'string' &&
       password &&
       typeof password === 'string' &&
-      req.file
+      req.file &&
+      ['image/png', 'image/jpeg', 'image/gif'].includes(fileType)
     ) {
       const userLogin = await User.findOne({ login });
       if (userLogin) {
