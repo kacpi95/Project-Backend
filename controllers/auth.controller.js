@@ -2,37 +2,44 @@ const { Session } = require('express-session');
 const User = require('../models/user.model');
 const bcrypt = require('bcrypt');
 const getImageFileType = require('../utils/getImageFileType.js');
+const removeFile = require('../utils/removeFile.js');
 
 exports.register = async (req, res) => {
   const { login, password, numberPhone } = req.body;
   try {
     const fileType = req.file ? await getImageFileType(req.file) : 'unknown';
+
     if (
-      login &&
-      typeof login === 'string' &&
-      password &&
-      typeof password === 'string' &&
-      req.file &&
-      ['image/png', 'image/jpeg', 'image/gif'].includes(fileType)
+      !login ||
+      typeof login !== 'string' ||
+      !password ||
+      typeof password !== 'string' ||
+      !req.file ||
+      !['image/png', 'image/jpeg', 'image/gif'].includes(fileType)
     ) {
-      const userLogin = await User.findOne({ login });
-      if (userLogin) {
-        return res
-          .status(409)
-          .json({ message: 'User with this login already exists' });
-      }
-      const newUser = new User({
-        login,
-        password: await bcrypt.hash(password, 12),
-        avatar: req.file.filename,
-        numberPhone,
-      });
-      await newUser.save();
-      res.status(201).json({ message: `User created ${newUser.login}` });
-    } else {
-      res.status(400).json({ message: 'Bad request' });
+      removeFile(req.file);
+      return res.status(400).json({ message: 'Bad request' });
     }
+
+    const userLogin = await User.findOne({ login });
+    if (userLogin) {
+      removeFile(req.file);
+      return res
+        .status(409)
+        .json({ message: 'User with this login already exists' });
+    }
+
+    const newUser = new User({
+      login,
+      password: await bcrypt.hash(password, 12),
+      avatar: req.file.filename,
+      numberPhone,
+    });
+
+    await newUser.save();
+    res.status(201).json({ message: `User created ${newUser.login}` });
   } catch (err) {
+    removeFile(req.file);
     res.status(500).json({ message: err.message });
   }
 };
