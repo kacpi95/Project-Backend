@@ -3,13 +3,14 @@ const User = require('../models/user.model');
 const bcrypt = require('bcrypt');
 
 exports.register = async (req, res) => {
-  const { login, password, avatar, numberPhone } = req.body;
+  const { login, password, numberPhone } = req.body;
   try {
     if (
       login &&
       typeof login === 'string' &&
       password &&
-      typeof password === 'string'
+      typeof password === 'string' &&
+      req.file
     ) {
       const userLogin = await User.findOne({ login });
       if (userLogin) {
@@ -20,6 +21,8 @@ exports.register = async (req, res) => {
       const newUser = new User({
         login,
         password: await bcrypt.hash(password, 12),
+        avatar: req.file.filename,
+        numberPhone,
       });
       await newUser.save();
       res.status(201).json({ message: `User created ${newUser.login}` });
