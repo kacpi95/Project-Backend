@@ -20,13 +20,12 @@ exports.getAdsId = async (req, res) => {
 };
 
 exports.postAds = async (req, res) => {
-  const { title, text, date, price, location, aboutSeller } = req.body;
+  const { title, text, price, location, aboutSeller } = req.body;
 
   try {
     const newNotice = new Ads({
       title,
       text,
-      date,
       image: req.file.filename,
       price,
       location,
