@@ -27,7 +27,7 @@ exports.postAds = async (req, res) => {
       title,
       text,
       date,
-      avatar: req.file.filename,
+      image: req.file.filename,
       price,
       location,
       aboutSeller,
@@ -55,18 +55,18 @@ exports.putAds = async (req, res) => {
     const notice = await Ads.findById(req.params.id);
     if (!notice) res.status(404).json({ message: 'Not Found' });
 
-    const oldAvatar = notice.avatar;
+    const oldImage = notice.image;
 
     if (req.file) {
-      notice.avatar = req.file.filename;
+      notice.image = req.file.filename;
     }
 
     Object.assign(notice, req.body);
 
     await notice.save();
 
-    if (req.file && oldAvatar) {
-      await removeFile({ path: `./client/public/uploads/${oldAvatar}` });
+    if (req.file && oldImage) {
+      await removeFile({ path: `./client/public/uploads/${oldImage}` });
     }
     res.json(notice);
   } catch (err) {
