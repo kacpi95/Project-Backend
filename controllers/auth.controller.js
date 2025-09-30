@@ -1,4 +1,3 @@
-const { Session } = require('express-session');
 const User = require('../models/user.model');
 const bcrypt = require('bcrypt');
 const getImageFileType = require('../utils/getImageFileType.js');
@@ -83,10 +82,11 @@ exports.getUser = async (req, res) => {
 
 exports.deleteLogout = async (req, res) => {
   try {
-    if (process.env.NODE_ENV !== 'production') {
-      await Session.deleteMany({});
-      return res.json({ message: 'Sessions deleted' });
-    }
+    req.session.destroy((err) => {
+      if (err) return res.status(500).json({ message: 'Error logging out' });
+      res.clearCookie('connect.sid');
+      return res.json({ message: 'Logged out' });
+    });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

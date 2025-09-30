@@ -51,7 +51,6 @@ exports.deleteAds = async (req, res) => {
 };
 
 exports.putAds = async (req, res) => {
-  const { title, text, date, price, location, aboutSeller } = req.body;
   try {
     const notice = await Ads.findById(req.params.id);
     if (!notice) res.status(404).json({ message: 'Not Found' });
@@ -62,12 +61,7 @@ exports.putAds = async (req, res) => {
       notice.avatar = req.file.filename;
     }
 
-    notice.title = title ?? notice.title;
-    notice.text = text ?? notice.text;
-    notice.date = date ?? notice.date;
-    notice.price = price ?? notice.price;
-    notice.location = location ?? notice.location;
-    notice.aboutSeller = aboutSeller ?? notice.aboutSeller;
+    Object.assign(notice, req.body);
 
     await notice.save();
 
