@@ -1,5 +1,5 @@
 import styles from './Home.module.css';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function Home() {
   return (
@@ -15,7 +15,7 @@ export default function Home() {
           <img src='' alt='' className={styles.image} />
           <h3 className={styles.title}>x</h3>
           <p className={styles.location}></p>
-          {/* <Link className={styles.readMore}>Read More</Link> */}
+          <Link className={styles.readMore}>Read More</Link>
         </div>
       </div>
     </div>
