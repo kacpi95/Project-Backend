@@ -1,7 +1,15 @@
 :root {
   --primary-color: #6b3f69;
   --secondary-color: #ddc3c3;
+  --background-color-pramry: #121a26;
   --background-color: #8d5f8c;
   --text-color: #fff;
   --text-color-secondary: #000000;
+}
+
+body {
+  background-color: #121a26;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
