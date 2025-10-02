@@ -1,10 +1,12 @@
 import styles from './HomePage.module.css';
 import { Link } from 'react-router-dom';
 import logo from './kacpiAI.jpg';
+import Header from '../../layout/Header';
 
 export default function Home() {
   return (
     <div className={styles.container}>
+      <Header />
       <form className={styles.searchForm}>
         <input
           className={styles.searchInput}

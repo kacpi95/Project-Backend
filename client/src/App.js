@@ -1,4 +1,4 @@
-import Home from './components/views/HomePage/HomePage';
+import Home from './components/pages/HomePage/HomePage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './styles/global.css';
 
