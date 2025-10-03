@@ -1,0 +1,34 @@
+.header {
+  background: var(--primary-color);
+  padding: 10px 20px;
+  margin-bottom: 50px;
+  color: white;
+}
+
+.nav {
+  display: flex;
+  gap: 15px;
+}
+
+.link {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.link:hover {
+  color: var(--secondary-color);
+}
+
+.linkButton {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font: inherit;
+  transition: color 0.3s ease;
+}
+
+.linkButton:hover {
+  color: var(--secondary-color);
+}
