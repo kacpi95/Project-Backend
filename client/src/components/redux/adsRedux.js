@@ -1,30 +1,32 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const API_URL = 'http://localhost:8000/api';
+
 export const fetchAds = createAsyncThunk('ads/fetchAll', async () => {
-  const res = await axios.get('http://localhost:8000/api/ads');
+  const res = await axios.get(`${API_URL}/ads`);
   return res.data;
 });
 
 export const fetchAdId = createAsyncThunk('ads/fetchById', async (id) => {
-  const res = await axios.get(`http://localhost:8000/api/ads/${id}`);
+  const res = await axios.get(`${API_URL}/ads/${id}`);
   return res.data;
 });
 
 export const addAd = createAsyncThunk('ads/addAd', async (adData) => {
-  const res = await axios.post('api/ads', adData);
+  const res = await axios.post(`${API_URL}/ads`, adData);
   return res.data;
 });
 
 export const deleteAd = createAsyncThunk('ads/deleteAd', async (id) => {
-  const res = await axios.delete(`api/ads/${id}`);
+  const res = await axios.delete(`${API_URL}/ads/${id}`);
   return res.data;
 });
 
 export const updateAd = createAsyncThunk(
   'ads/updateAd',
   async ({ id, adData }) => {
-    const res = await axios.put(`api/ads/${id}`, adData);
+    const res = await axios.put(`${API_URL}/ads/${id}`, adData);
     return res.data;
   }
 );
