@@ -32,6 +32,10 @@ export default function AdsPage() {
         <p className={styles.location}>{currentAd.location}</p>
         <p className={styles.text}>{currentAd.text}</p>
         <p className={styles.date}>{currentAd.date}</p>
+        <div className={styles.buttons}>
+          <button className={styles.editBtn}>Edytuj</button>
+          <button className={styles.deleteBtn}>Usuń</button>
+        </div>
       </div>
     </div>
   );
