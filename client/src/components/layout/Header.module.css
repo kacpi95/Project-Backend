@@ -1,18 +1,30 @@
 .header {
-  background: var(--primary-color);
-  padding: 10px 20px;
   margin-bottom: 50px;
+  padding: 10px 20px;
   color: white;
+  background: var(--primary-color);
 }
 
 .nav {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navLeft {
+  display: flex;
   gap: 15px;
+  align-items: center;
+}
+
+.navRight {
+  display: flex;
+  align-items: center;
 }
 
 .link {
-  color: white;
   text-decoration: none;
+  color: white;
   transition: color 0.3s ease;
 }
 
@@ -21,14 +33,38 @@
 }
 
 .linkButton {
-  background: none;
   border: none;
-  color: white;
   cursor: pointer;
   font: inherit;
+  color: white;
+  background: none;
   transition: color 0.3s ease;
 }
 
 .linkButton:hover {
   color: var(--secondary-color);
+}
+
+.addAdLink {
+  padding: 6px 12px;
+  text-decoration: none;
+  font-weight: bold;
+  border: 1px solid white;
+  border-radius: 4px;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.addAdLink:hover {
+  background-color: white;
+  color: var(--primary-color);
+}
+
+.title {
+  margin: 0;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  flex-grow: 1;
 }

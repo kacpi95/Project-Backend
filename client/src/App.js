@@ -7,11 +7,13 @@ import AdsPage from './components/pages/AdsPage/AdsPage';
 import NoPage from './components/pages/NoPage/NoPage';
 import EditPage from './components/pages/EditPage/EditPage';
 import AddPage from './components/pages/AddPage/AddPage';
+import Header from './components/layout/Header';
 
 function App() {
   return (
     <BrowserRouter>
       <Provider store={store}>
+        <Header />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/ads/:id' element={<AdsPage />} />

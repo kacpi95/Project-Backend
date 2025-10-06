@@ -1,7 +1,6 @@
 import styles from './HomePage.module.css';
 import { Link } from 'react-router-dom';
 import logo from './kacpiAI.jpg';
-import Header from '../../layout/Header';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchAds } from '../../redux/adsRedux';
@@ -22,7 +21,6 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
-      <Header />
       <form className={styles.searchForm}>
         <input
           className={styles.searchInput}
