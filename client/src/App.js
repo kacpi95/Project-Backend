@@ -6,6 +6,7 @@ import store from './components/redux/store';
 import AdsPage from './components/pages/AdsPage/AdsPage';
 import NoPage from './components/pages/NoPage/NoPage';
 import EditPage from './components/pages/EditPage/EditPage';
+import AddPage from './components/pages/AddPage/AddPage';
 
 function App() {
   return (
@@ -14,8 +15,9 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/ads/:id' element={<AdsPage />} />
-          <Route path='*' element={<NoPage />} />
           <Route path='/ads/:id/edit' element={<EditPage />} />
+          <Route path='/ads/add' element={<AddPage />} />
+          <Route path='*' element={<NoPage />} />
         </Routes>
       </Provider>
     </BrowserRouter>
