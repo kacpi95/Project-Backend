@@ -1,12 +1,14 @@
 import { useEffect } from 'react';
 import styles from './AdsPage.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchAdId } from '../../redux/adsRedux';
+import { deleteAd, fetchAdId } from '../../redux/adsRedux';
 import logo from './kacpiAI.jpg';
 import { useParams } from 'react-router';
+import { useNavigate } from 'react-router';
 
 export default function AdsPage() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { id } = useParams();
   const { currentAd, loading, error } = useSelector((state) => state.ads);
   const { user } = useSelector((state) => state.auth);
@@ -19,6 +21,16 @@ export default function AdsPage() {
   if (error) return <p>Błąd {error}</p>;
   if (!currentAd) return <p>Brak danych...</p>;
 
+  function handleClickEditAds(e) {
+    e.preventDefault();
+    navigate(`/ads/${currentAd._id}/edit`);
+  }
+
+  async function handleClickDeleteAd(e) {
+    e.preventDefault();
+    await dispatch(deleteAd(id));
+    navigate('/');
+  }
   return (
     <div className={styles.container}>
       <div className={styles?.user}>
@@ -33,8 +45,12 @@ export default function AdsPage() {
         <p className={styles.text}>{currentAd.text}</p>
         <p className={styles.date}>{currentAd.date}</p>
         <div className={styles.buttons}>
-          <button className={styles.editBtn}>Edytuj</button>
-          <button className={styles.deleteBtn}>Usuń</button>
+          <button className={styles.editBtn} onClick={handleClickEditAds}>
+            Edytuj
+          </button>
+          <button className={styles.deleteBtn} onClick={handleClickDeleteAd}>
+            Usuń
+          </button>
         </div>
       </div>
     </div>
