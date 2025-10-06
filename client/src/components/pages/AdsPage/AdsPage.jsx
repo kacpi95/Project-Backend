@@ -9,6 +9,7 @@ export default function AdsPage() {
   const dispatch = useDispatch();
   const { id } = useParams();
   const { currentAd, loading, error } = useSelector((state) => state.ads);
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (id) dispatch(fetchAdId(id));
@@ -20,7 +21,11 @@ export default function AdsPage() {
 
   return (
     <div className={styles.container}>
-      <div clasName={styles.user}></div>
+      <div className={styles?.user}>
+        <h2 className={styles.login}>{user?.login}</h2>
+        <p className={styles.number}>{user?.numberPhone}</p>
+        <img src={logo} className={styles.avatar} alt='k' />
+      </div>
       <div key={currentAd._id} className={styles.card}>
         <img src={logo} alt={currentAd.title} className={styles.image} />
         <h3 className={styles.title}>{currentAd.title}</h3>
