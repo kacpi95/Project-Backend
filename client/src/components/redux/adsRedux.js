@@ -7,7 +7,7 @@ export const fetchAds = createAsyncThunk('ads/fetchAll', async () => {
 });
 
 export const fetchAdId = createAsyncThunk('ads/fetchById', async (id) => {
-  const res = await axios.get(`/api/ads/${id}`);
+  const res = await axios.get(`http://localhost:8000/api/ads/${id}`);
   return res.data;
 });
 

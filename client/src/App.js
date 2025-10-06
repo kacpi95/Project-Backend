@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './styles/global.css';
 import { Provider } from 'react-redux';
 import store from './components/redux/store';
+import AdsPage from './components/pages/AdsPage/AdsPage';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Provider store={store}>
         <Routes>
           <Route path='/' element={<Home />} />
+          <Route path='/ads/:id' element={<AdsPage />} />
         </Routes>
       </Provider>
     </BrowserRouter>
