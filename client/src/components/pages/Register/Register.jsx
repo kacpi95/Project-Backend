@@ -11,7 +11,7 @@ export default function Register() {
   const [password, setPassword] = useState('');
   const [number, setNumber] = useState('');
   const [avatar, setAvatar] = useState(null);
-  const [laoding, setLoading] = useState(null);
+  const [loading, setLoading] = useState(null);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -25,8 +25,25 @@ export default function Register() {
     formData.append('numberPhone', number);
     formData.append('avatar', avatar);
 
-    await dispatch(register(formData));
-    // navigate('/login');
+    setLoading('loading');
+
+    try {
+      const resultAction = await dispatch(register(formData));
+
+      if (register.fulfilled.match(resultAction)) {
+        setLoading('success');
+        navigate('/login');
+      } else if (register.rejected.match(resultAction)) {
+        const errorMsg = resultAction.error.message;
+
+        if (errorMsg.includes('400')) setLoading('clientError');
+        else if (errorMsg.includes('409')) setLoading('loginError');
+        else setLoading('serverError');
+      }
+    } catch (error) {
+      setLoading('serverError');
+      console.error(error);
+    }
   }
   function handleClickCancel() {
     navigate('/');
@@ -35,6 +52,39 @@ export default function Register() {
   return (
     <div className={styles.container}>
       <h1 className={styles.header}>Rejestracja</h1>
+      {loading === 'success' && (
+        <Alert variant='success'>
+          <Alert.Heading>Success!</Alert.Heading>
+          <p>You have been successfully registered! You can now log in..</p>
+        </Alert>
+      )}
+
+      {loading === 'serverError' && (
+        <Alert variant='danger'>
+          <Alert.Heading>Something went wrong..</Alert.Heading>
+          <p>Unexpected error... Try again!</p>
+        </Alert>
+      )}
+
+      {loading === 'clientError' && (
+        <Alert variant='danger'>
+          <Alert.Heading>No enough data</Alert.Heading>
+          <p>You have to fill all the fields.</p>
+        </Alert>
+      )}
+
+      {loading === 'loginError' && (
+        <Alert variant='warning'>
+          <Alert.Heading>Login already in use</Alert.Heading>
+          <p>You have to user other login.</p>
+        </Alert>
+      )}
+
+      {loading === 'loading' && (
+        <Spinner animation='border' role='status' className='d-block mx-auto'>
+          <span className='visually-hidden'>Loading...</span>
+        </Spinner>
+      )}
 
       <form className={styles.form} onSubmit={handleSubmit}>
         <label className={styles.label} htmlFor='login'>
