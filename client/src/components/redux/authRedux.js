@@ -4,7 +4,9 @@ import axios from 'axios';
 const API_URL = 'http://localhost:8000/auth';
 
 export const login = createAsyncThunk('auth/login', async (loginData) => {
-  const res = await axios.post(`${API_URL}/login`, loginData);
+  const res = await axios.post(`${API_URL}/login`, loginData, {
+    withCredentials: true,
+  });
   return res.data;
 });
 

@@ -10,6 +10,7 @@ import EditPage from './components/pages/EditPage/EditPage';
 import AddPage from './components/pages/AddPage/AddPage';
 import Header from './components/layout/Header';
 import Register from './components/pages/Register/Register';
+import Login from './components/pages/Login/Login';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/register' element={<Register />} />
+          <Route path='/login' element={<Login />} />
           <Route path='/ads/:id' element={<AdsPage />} />
           <Route path='/ads/:id/edit' element={<EditPage />} />
           <Route path='/ads/add' element={<AddPage />} />
