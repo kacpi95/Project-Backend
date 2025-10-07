@@ -11,15 +11,19 @@ export default function AddPage() {
   const [data, setData] = useState({
     title: '',
     text: '',
-    image: '',
+    image: null,
     price: '',
     location: '',
     aboutSeller: '',
   });
 
   function handleChange(e) {
-    const { id, value } = e.target;
-    setData((prev) => ({ ...prev, [id]: value }));
+    const { id, value, files } = e.target;
+    if (id === 'image') {
+      setData((prev) => ({ ...prev, image: files[0] }));
+    } else {
+      setData((prev) => ({ ...prev, [id]: value }));
+    }
   }
 
   function handleClickCancel() {
@@ -28,7 +32,16 @@ export default function AddPage() {
 
   async function handleClickAddAd(e) {
     e.preventDefault();
-    await dispatch(addAd(data));
+
+    const formData = new FormData();
+    formData.append('title', data.title);
+    formData.append('text', data.text);
+    formData.append('price', data.price);
+    formData.append('location', data.location);
+    formData.append('aboutSeller', data.aboutSeller);
+    if (data.image) formData.append('image', data.image);
+
+    await dispatch(addAd(formData));
     navigate('/');
   }
 
@@ -46,7 +59,6 @@ export default function AddPage() {
           value={data.title}
           onChange={handleChange}
         />
-
         <label className={styles.label} htmlFor='text'>
           Tekst:
         </label>
@@ -57,18 +69,22 @@ export default function AddPage() {
           value={data.text}
           onChange={handleChange}
         />
-
         <label className={styles.label} htmlFor='image'>
           Zdjęcie:
         </label>
         <input
-          type='text'
+          type='file'
           id='image'
           className={styles.input}
-          value={data.image}
           onChange={handleChange}
         />
-
+        {data.image instanceof File && (
+          <img
+            src={URL.createObjectURL(data.image)}
+            alt='Podgląd'
+            className={styles.imagePreview}
+          />
+        )}
         <label className={styles.label} htmlFor='price'>
           Cena:
         </label>
@@ -79,7 +95,6 @@ export default function AddPage() {
           value={data.price}
           onChange={handleChange}
         />
-
         <label className={styles.label} htmlFor='location'>
           Lokalizacja:
         </label>
@@ -90,7 +105,6 @@ export default function AddPage() {
           value={data.location}
           onChange={handleChange}
         />
-
         <label className={styles.label} htmlFor='aboutSeller'>
           O sprzedającym:
         </label>
@@ -101,7 +115,6 @@ export default function AddPage() {
           value={data.aboutSeller}
           onChange={handleChange}
         />
-
         <div className={styles.buttons}>
           <button type='submit' className={styles.saveBtn}>
             Zapisz
