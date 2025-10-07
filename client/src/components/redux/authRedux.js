@@ -9,7 +9,10 @@ export const login = createAsyncThunk('auth/login', async (loginData) => {
 });
 
 export const register = createAsyncThunk('auth/register', async (regiData) => {
-  const res = await axios.post(`${API_URL}/register`, regiData);
+  const res = await axios.post(`${API_URL}/register`, regiData, {
+    withCredentials: true,
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
   return res.data;
 });
 export const fetchUser = createAsyncThunk('auth/user', async () => {

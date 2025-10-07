@@ -8,8 +8,8 @@
 }
 
 body {
-  background-color: #121a26;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  background-color: #121a26 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
 }

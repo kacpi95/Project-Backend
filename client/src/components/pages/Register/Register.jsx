@@ -1,15 +1,35 @@
 import { useState } from 'react';
 import styles from './Register.module.css';
 import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { register } from '../../redux/authRedux';
+import Spinner from 'react-bootstrap/Spinner';
+import Alert from 'react-bootstrap/Alert';
 
 export default function Register() {
-  const [login, setLogin] = useState();
-  const [password, setPassword] = useState();
-  const [number, setNumber] = useState();
-  const [avatar, setAvatar] = useState();
+  const [login, setLogin] = useState('');
+  const [password, setPassword] = useState('');
+  const [number, setNumber] = useState('');
+  const [avatar, setAvatar] = useState(null);
+  const [laoding, setLoading] = useState(null);
 
-  function handleSubmit(e) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  async function handleSubmit(e) {
     e.preventDefault();
+
+    const formData = new FormData();
+    formData.append('login', login);
+    formData.append('password', password);
+    formData.append('numberPhone', number);
+    formData.append('avatar', avatar);
+
+    await dispatch(register(formData));
+    // navigate('/login');
+  }
+  function handleClickCancel() {
+    navigate('/');
   }
 
   return (
@@ -64,7 +84,11 @@ export default function Register() {
           <button type='submit' className={styles.saveBtn}>
             Zapisz
           </button>
-          <button type='button' className={styles.cancelBtn}>
+          <button
+            type='button'
+            className={styles.cancelBtn}
+            onClick={handleClickCancel}
+          >
             Anuluj
           </button>
         </div>

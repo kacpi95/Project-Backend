@@ -1,5 +1,6 @@
 import Home from './components/pages/HomePage/HomePage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/global.css';
 import { Provider } from 'react-redux';
 import store from './components/redux/store';
