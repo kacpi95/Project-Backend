@@ -8,6 +8,7 @@ import NoPage from './components/pages/NoPage/NoPage';
 import EditPage from './components/pages/EditPage/EditPage';
 import AddPage from './components/pages/AddPage/AddPage';
 import Header from './components/layout/Header';
+import Register from './components/pages/Register/Register';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Header />
         <Routes>
           <Route path='/' element={<Home />} />
+          <Route path='/register' element={<Register />} />
           <Route path='/ads/:id' element={<AdsPage />} />
           <Route path='/ads/:id/edit' element={<EditPage />} />
           <Route path='/ads/add' element={<AddPage />} />
