@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router';
 import { addAd } from '../../redux/adsRedux';
 import Button from '../../common/Button/Button';
 import Input from '../../common/Input/Input';
+import Label from '../../common/Label/Label';
 
 export default function AddPage() {
   const navigate = useNavigate();
@@ -49,11 +50,9 @@ export default function AddPage() {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.header}>Edit Ad</h1>
+      <h1 className={styles.header}>Add a new Ad</h1>
       <form className={styles.form} onSubmit={handleClickAddAd}>
-        <label className={styles.label} htmlFor='title'>
-          Title:
-        </label>
+        <Label htmlFor='title'>Title:</Label>
         <Input
           id='title'
           type='text'
@@ -61,9 +60,7 @@ export default function AddPage() {
           value={data.title}
           onChange={handleChange}
         />
-        <label className={styles.label} htmlFor='text'>
-          Text:
-        </label>
+        <Label htmlFor='text'>Text:</Label>
         <Input
           id='text'
           type='text'
@@ -71,9 +68,7 @@ export default function AddPage() {
           value={data.text}
           onChange={handleChange}
         />
-        <label className={styles.label} htmlFor='image'>
-          Photo:
-        </label>
+        <Label htmlFor='image'>Photo:</Label>
         <Input
           type='file'
           id='image'
@@ -87,9 +82,7 @@ export default function AddPage() {
             className={styles.imagePreview}
           />
         )}
-        <label className={styles.label} htmlFor='price'>
-          Price:
-        </label>
+        <Label htmlFor='price'>Price:</Label>
         <Input
           type='number'
           id='price'
@@ -97,9 +90,7 @@ export default function AddPage() {
           value={data.price}
           onChange={handleChange}
         />
-        <label className={styles.label} htmlFor='location'>
-          Location:
-        </label>
+        <Label htmlFor='location'>Location:</Label>
         <Input
           id='location'
           type='text'
@@ -107,9 +98,7 @@ export default function AddPage() {
           value={data.location}
           onChange={handleChange}
         />
-        <label className={styles.label} htmlFor='aboutSeller'>
-          About the seller:
-        </label>
+        <Label htmlFor='aboutSeller'>About the seller:</Label>
         <Input
           id='aboutSeller'
           type='text'

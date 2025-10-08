@@ -5,6 +5,7 @@ import { fetchAdId, updateAd } from '../../redux/adsRedux';
 import { useEffect, useState } from 'react';
 import Button from '../../common/Button/Button';
 import Input from '../../common/Input/Input';
+import Label from '../../common/Label/Label';
 
 export default function EditPage() {
   const dispatch = useDispatch();
@@ -58,9 +59,7 @@ export default function EditPage() {
     <div className={styles.container}>
       <h1 className={styles.header}>Edit Ad</h1>
       <form className={styles.form} onSubmit={handleClickSaveChanges}>
-        <label className={styles.label} htmlFor='title'>
-          Title:
-        </label>
+        <Label htmlFor='title'>Title:</Label>
         <Input
           id='title'
           type='text'
@@ -69,9 +68,7 @@ export default function EditPage() {
           onChange={handleChange}
         />
 
-        <label className={styles.label} htmlFor='text'>
-          Text:
-        </label>
+        <Label htmlFor='text'>Text:</Label>
         <Input
           id='text'
           type='text'
@@ -80,9 +77,7 @@ export default function EditPage() {
           onChange={handleChange}
         />
 
-        <label className={styles.label} htmlFor='image'>
-          Photo:
-        </label>
+        <Label htmlFor='image'>Photo:</Label>
         <Input
           id='image'
           type='text'
@@ -91,9 +86,7 @@ export default function EditPage() {
           onChange={handleChange}
         />
 
-        <label className={styles.label} htmlFor='price'>
-          Price:
-        </label>
+        <Label htmlFor='price'>Price:</Label>
         <Input
           type='number'
           id='price'
@@ -102,9 +95,7 @@ export default function EditPage() {
           onChange={handleChange}
         />
 
-        <label className={styles.label} htmlFor='location'>
-          Location:
-        </label>
+        <Label htmlFor='location'>Location:</Label>
         <Input
           id='location'
           type='text'
@@ -113,9 +104,7 @@ export default function EditPage() {
           onChange={handleChange}
         />
 
-        <label className={styles.label} htmlFor='aboutSeller'>
-          About the seller:
-        </label>
+        <Label htmlFor='aboutSeller'>About the seller:</Label>
         <Input
           id='aboutSeller'
           type='text'

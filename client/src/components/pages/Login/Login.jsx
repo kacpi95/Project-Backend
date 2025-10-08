@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { login } from '../../redux/authRedux';
 import Button from '../../common/Button/Button';
 import Input from '../../common/Input/Input';
+import Label from '../../common/Label/Label';
 
 export default function Login() {
   const [loginValue, setLoginValue] = useState('');
@@ -45,9 +46,8 @@ export default function Login() {
   }
   return (
     <div className={styles.container}>
-        <h1 className={styles.header}>Login</h1>
+      <h1 className={styles.header}>Login</h1>
       <form className={styles.form} onSubmit={handleSubmit}>
-
         {loading === 'success' && (
           <Alert variant='success'>
             <Alert.Heading>Success!</Alert.Heading>
@@ -75,18 +75,14 @@ export default function Login() {
           </Spinner>
         )}
 
-        <label className={styles.label} htmlFor='login'>
-          Login:
-        </label>
+        <Label htmlFor='login'>Login:</Label>
         <Input
           type='text'
           id='login'
           value={loginValue}
           onChange={(e) => setLoginValue(e.target.value)}
         />
-        <label className={styles.label} htmlFor='password'>
-          Password:
-        </label>
+        <Label htmlFor='password'>Password:</Label>
         <Input
           type='password'
           id='password'

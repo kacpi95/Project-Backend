@@ -7,6 +7,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import Alert from 'react-bootstrap/Alert';
 import Button from '../../common/Button/Button';
 import Input from '../../common/Input/Input';
+import Label from '../../common/Label/Label';
 
 export default function Register() {
   const [login, setLogin] = useState('');
@@ -89,9 +90,7 @@ export default function Register() {
       )}
 
       <form className={styles.form} onSubmit={handleSubmit}>
-        <label className={styles.label} htmlFor='login'>
-          Login:
-        </label>
+        <Label htmlFor='login'>Login:</Label>
         <Input
           type='text'
           id='login'
@@ -99,9 +98,7 @@ export default function Register() {
           onChange={(e) => setLogin(e.target.value)}
         />
 
-        <label className={styles.label} htmlFor='password'>
-          Password:
-        </label>
+        <Label htmlFor='password'>Password:</Label>
         <Input
           type='password'
           id='password'
@@ -109,9 +106,7 @@ export default function Register() {
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <label className={styles.label} htmlFor='number'>
-          Telephone number:
-        </label>
+        <Label htmlFor='number'>Telephone number:</Label>
         <Input
           type='number'
           id='number'
@@ -119,9 +114,7 @@ export default function Register() {
           onChange={(e) => setNumber(e.target.value)}
         />
 
-        <label className={styles.label} htmlFor='avatar'>
-          Avatar:
-        </label>
+        <Label htmlFor='avatar'>Avatar:</Label>
         <Input
           type='file'
           id='avatar'

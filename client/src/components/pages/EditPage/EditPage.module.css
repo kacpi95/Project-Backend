@@ -22,12 +22,6 @@
   background-color: #fff;
 }
 
-.label {
-  margin-bottom: 5px;
-  margin: 0 auto;
-  font-weight: bold;
-  color: #333;
-}
 
 .buttons {
   display: flex;
