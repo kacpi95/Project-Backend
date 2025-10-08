@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { deleteAd, fetchAdId } from '../../redux/adsRedux';
 import { useParams } from 'react-router';
 import { useNavigate } from 'react-router';
+import Button from '../../common/Button/Button';
 
 export default function AdsPage() {
   const dispatch = useDispatch();
@@ -57,12 +58,12 @@ export default function AdsPage() {
         <p className={styles.date}>{currentAd.date}</p>
         {userTrue && (
           <div className={styles.buttons}>
-            <button className={styles.editBtn} onClick={handleClickEditAds}>
+            <Button className={styles.editBtn} onClick={handleClickEditAds}>
               Edit
-            </button>
-            <button className={styles.deleteBtn} onClick={handleClickDeleteAd}>
+            </Button>
+            <Button className={styles.cancelBtn} onClick={handleClickDeleteAd}>
               Remove
-            </button>
+            </Button>
           </div>
         )}
       </div>

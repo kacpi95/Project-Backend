@@ -3,6 +3,7 @@ import styles from './AddPage.module.css';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { addAd } from '../../redux/adsRedux';
+import Button from '../../common/Button/Button';
 
 export default function AddPage() {
   const navigate = useNavigate();
@@ -116,16 +117,12 @@ export default function AddPage() {
           onChange={handleChange}
         />
         <div className={styles.buttons}>
-          <button type='submit' className={styles.saveBtn}>
+          <Button type='submit' className={styles.saveBtn}>
             Save
-          </button>
-          <button
-            type='button'
-            className={styles.cancelBtn}
-            onClick={handleClickCancel}
-          >
+          </Button>
+          <Button className={styles.cancelBtn} onClick={handleClickCancel}>
             Cancel
-          </button>
+          </Button>
         </div>
       </form>
     </div>

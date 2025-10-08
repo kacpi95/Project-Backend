@@ -16,19 +16,16 @@
   border-radius: 4px;
 }
 
-.searchButton {
-  padding: 8px 16px;
+.searchBtn {
   background-color: var(--primary-color);
-  border: none;
   color: var(--text-color);
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-weight: bold;
-  letter-spacing: 1px;
+  border: none;
 }
-.searchButton:hover {
-  background-color: var(--background-color);
+
+.searchBtn:hover {
+  background-color: #fff;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
 }
 .grid {
   display: grid;
@@ -41,6 +38,7 @@
   flex-direction: column;
   justify-content: space-between;
   text-align: center;
+  padding: 15px 0;
   border: 1px solid var(--primary-color);
   border-radius: 8px;
   overflow: hidden;
@@ -67,7 +65,7 @@
 
 .readMore {
   width: 50%;
-  margin: 0 auto;
+  margin: 5px auto;
   display: inline-block;
   margin-bottom: 15px;
   padding: 6px 12px;
@@ -78,8 +76,12 @@
   transition: all 0.3s ease;
   cursor: pointer;
   font-weight: bold;
+  border: 1px solid transparent;
   letter-spacing: 1px;
 }
+
 .readMore:hover {
-  background-color: var(--background-color);
+  background-color: #fff;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
 }

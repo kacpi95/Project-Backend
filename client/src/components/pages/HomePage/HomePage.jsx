@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchAds, searchAds } from '../../redux/adsRedux';
 import { useState } from 'react';
+import Button from '../../common/Button/Button';
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -34,9 +35,9 @@ export default function Home() {
           value={searchId}
           onChange={(e) => setSearchId(e.target.value)}
         />
-        <button type='submit' className={styles.searchButton}>
+        <Button type='submit' className={styles.searchBtn}>
           Search
-        </button>
+        </Button>
       </form>
       <div className={styles.grid}>
         {list.map((ad) => {

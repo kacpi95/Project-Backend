@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { register } from '../../redux/authRedux';
 import Spinner from 'react-bootstrap/Spinner';
 import Alert from 'react-bootstrap/Alert';
+import Button from '../../common/Button/Button';
 
 export default function Register() {
   const [login, setLogin] = useState('');
@@ -131,16 +132,12 @@ export default function Register() {
         />
 
         <div className={styles.buttons}>
-          <button type='submit' className={styles.saveBtn}>
+          <Button type='submit' className={styles.saveBtn}>
             Save
-          </button>
-          <button
-            type='button'
-            className={styles.cancelBtn}
-            onClick={handleClickCancel}
-          >
+          </Button>
+          <Button className={styles.cancelBtn} onClick={handleClickCancel}>
             Cancel
-          </button>
+          </Button>
         </div>
       </form>
     </div>

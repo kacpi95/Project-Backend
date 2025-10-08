@@ -5,6 +5,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { login } from '../../redux/authRedux';
+import Button from '../../common/Button/Button';
 
 export default function Login() {
   const [loginValue, setLoginValue] = useState('');
@@ -93,16 +94,12 @@ export default function Login() {
         className={styles.input}
       />
       <div className={styles.buttons}>
-        <button type='submit' className={styles.saveBtn}>
+        <Button type='submit' className={styles.saveBtn}>
           Log in
-        </button>
-        <button
-          type='button'
-          className={styles.cancelBtn}
-          onClick={handleClickCancel}
-        >
+        </Button>
+        <Button className={styles.cancelBtn} onClick={handleClickCancel}>
           Cancel
-        </button>
+        </Button>
       </div>
     </form>
   );

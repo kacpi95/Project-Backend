@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router';
 import { fetchAdId, updateAd } from '../../redux/adsRedux';
 import { useEffect, useState } from 'react';
+import Button from '../../common/Button/Button';
 
 export default function EditPage() {
   const dispatch = useDispatch();
@@ -123,16 +124,12 @@ export default function EditPage() {
         />
 
         <div className={styles.buttons}>
-          <button type='submit' className={styles.saveBtn}>
+          <Button type='submit' className={styles.saveBtn}>
             Save
-          </button>
-          <button
-            type='button'
-            className={styles.cancelBtn}
-            onClick={handleClickCancel}
-          >
+          </Button>
+          <Button className={styles.cancelBtn} onClick={handleClickCancel}>
             Cancel
-          </button>
+          </Button>
         </div>
       </form>
     </div>
