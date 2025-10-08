@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { addAd } from '../../redux/adsRedux';
 import Button from '../../common/Button/Button';
+import Input from '../../common/Input/Input';
 
 export default function AddPage() {
   const navigate = useNavigate();
@@ -53,9 +54,9 @@ export default function AddPage() {
         <label className={styles.label} htmlFor='title'>
           Title:
         </label>
-        <input
-          type='text'
+        <Input
           id='title'
+          type='text'
           className={styles.input}
           value={data.title}
           onChange={handleChange}
@@ -63,9 +64,9 @@ export default function AddPage() {
         <label className={styles.label} htmlFor='text'>
           Text:
         </label>
-        <input
-          type='text'
+        <Input
           id='text'
+          type='text'
           className={styles.input}
           value={data.text}
           onChange={handleChange}
@@ -73,7 +74,7 @@ export default function AddPage() {
         <label className={styles.label} htmlFor='image'>
           Photo:
         </label>
-        <input
+        <Input
           type='file'
           id='image'
           className={styles.input}
@@ -89,7 +90,7 @@ export default function AddPage() {
         <label className={styles.label} htmlFor='price'>
           Price:
         </label>
-        <input
+        <Input
           type='number'
           id='price'
           className={styles.input}
@@ -99,9 +100,9 @@ export default function AddPage() {
         <label className={styles.label} htmlFor='location'>
           Location:
         </label>
-        <input
-          type='text'
+        <Input
           id='location'
+          type='text'
           className={styles.input}
           value={data.location}
           onChange={handleChange}
@@ -109,9 +110,9 @@ export default function AddPage() {
         <label className={styles.label} htmlFor='aboutSeller'>
           About the seller:
         </label>
-        <input
-          type='text'
+        <Input
           id='aboutSeller'
+          type='text'
           className={styles.input}
           value={data.aboutSeller}
           onChange={handleChange}

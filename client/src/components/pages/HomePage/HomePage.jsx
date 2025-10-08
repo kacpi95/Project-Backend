@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { fetchAds, searchAds } from '../../redux/adsRedux';
 import { useState } from 'react';
 import Button from '../../common/Button/Button';
+import Input from '../../common/Input/Input';
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -28,9 +29,10 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <form className={styles.searchForm} onSubmit={handleClickSearch}>
-        <input
-          className={styles.searchInput}
+        <Input
+          noDefaultClass
           type='text'
+          className={styles.searchInput}
           placeholder='Search ...'
           value={searchId}
           onChange={(e) => setSearchId(e.target.value)}

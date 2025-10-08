@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router';
 import { fetchAdId, updateAd } from '../../redux/adsRedux';
 import { useEffect, useState } from 'react';
 import Button from '../../common/Button/Button';
+import Input from '../../common/Input/Input';
 
 export default function EditPage() {
   const dispatch = useDispatch();
@@ -60,9 +61,9 @@ export default function EditPage() {
         <label className={styles.label} htmlFor='title'>
           Title:
         </label>
-        <input
-          type='text'
+        <Input
           id='title'
+          type='text'
           className={styles.input}
           value={data.title}
           onChange={handleChange}
@@ -71,9 +72,9 @@ export default function EditPage() {
         <label className={styles.label} htmlFor='text'>
           Text:
         </label>
-        <input
-          type='text'
+        <Input
           id='text'
+          type='text'
           className={styles.input}
           value={data.text}
           onChange={handleChange}
@@ -82,9 +83,9 @@ export default function EditPage() {
         <label className={styles.label} htmlFor='image'>
           Photo:
         </label>
-        <input
-          type='text'
+        <Input
           id='image'
+          type='text'
           className={styles.input}
           value={data.image}
           onChange={handleChange}
@@ -93,7 +94,7 @@ export default function EditPage() {
         <label className={styles.label} htmlFor='price'>
           Price:
         </label>
-        <input
+        <Input
           type='number'
           id='price'
           className={styles.input}
@@ -104,9 +105,9 @@ export default function EditPage() {
         <label className={styles.label} htmlFor='location'>
           Location:
         </label>
-        <input
-          type='text'
+        <Input
           id='location'
+          type='text'
           className={styles.input}
           value={data.location}
           onChange={handleChange}
@@ -115,9 +116,9 @@ export default function EditPage() {
         <label className={styles.label} htmlFor='aboutSeller'>
           About the seller:
         </label>
-        <input
-          type='text'
+        <Input
           id='aboutSeller'
+          type='text'
           className={styles.input}
           value={data.aboutSeller}
           onChange={handleChange}

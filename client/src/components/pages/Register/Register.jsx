@@ -6,6 +6,7 @@ import { register } from '../../redux/authRedux';
 import Spinner from 'react-bootstrap/Spinner';
 import Alert from 'react-bootstrap/Alert';
 import Button from '../../common/Button/Button';
+import Input from '../../common/Input/Input';
 
 export default function Register() {
   const [login, setLogin] = useState('');
@@ -91,44 +92,40 @@ export default function Register() {
         <label className={styles.label} htmlFor='login'>
           Login:
         </label>
-        <input
+        <Input
           type='text'
           id='login'
           value={login}
           onChange={(e) => setLogin(e.target.value)}
-          className={styles.input}
         />
 
         <label className={styles.label} htmlFor='password'>
           Password:
         </label>
-        <input
+        <Input
           type='password'
           id='password'
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className={styles.input}
         />
 
         <label className={styles.label} htmlFor='number'>
           Telephone number:
         </label>
-        <input
+        <Input
           type='number'
           id='number'
           value={number}
           onChange={(e) => setNumber(e.target.value)}
-          className={styles.input}
         />
 
         <label className={styles.label} htmlFor='avatar'>
           Avatar:
         </label>
-        <input
+        <Input
           type='file'
           id='avatar'
           onChange={(e) => setAvatar(e.target.files[0])}
-          className={styles.input}
         />
 
         <div className={styles.buttons}>
