@@ -47,10 +47,10 @@ export default function AddPage() {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.header}>Edytuj Ogłoszenie</h1>
+      <h1 className={styles.header}>Edit Ad</h1>
       <form className={styles.form} onSubmit={handleClickAddAd}>
         <label className={styles.label} htmlFor='title'>
-          Tytuł:
+          Title:
         </label>
         <input
           type='text'
@@ -60,7 +60,7 @@ export default function AddPage() {
           onChange={handleChange}
         />
         <label className={styles.label} htmlFor='text'>
-          Tekst:
+          Text:
         </label>
         <input
           type='text'
@@ -70,7 +70,7 @@ export default function AddPage() {
           onChange={handleChange}
         />
         <label className={styles.label} htmlFor='image'>
-          Zdjęcie:
+          Photo:
         </label>
         <input
           type='file'
@@ -86,7 +86,7 @@ export default function AddPage() {
           />
         )}
         <label className={styles.label} htmlFor='price'>
-          Cena:
+          Price:
         </label>
         <input
           type='number'
@@ -96,7 +96,7 @@ export default function AddPage() {
           onChange={handleChange}
         />
         <label className={styles.label} htmlFor='location'>
-          Lokalizacja:
+          Location:
         </label>
         <input
           type='text'
@@ -106,7 +106,7 @@ export default function AddPage() {
           onChange={handleChange}
         />
         <label className={styles.label} htmlFor='aboutSeller'>
-          O sprzedającym:
+          About the seller:
         </label>
         <input
           type='text'
@@ -117,14 +117,14 @@ export default function AddPage() {
         />
         <div className={styles.buttons}>
           <button type='submit' className={styles.saveBtn}>
-            Zapisz
+            Save
           </button>
           <button
             type='button'
             className={styles.cancelBtn}
             onClick={handleClickCancel}
           >
-            Anuluj
+            Cancel
           </button>
         </div>
       </form>

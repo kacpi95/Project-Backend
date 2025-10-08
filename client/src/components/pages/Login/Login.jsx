@@ -43,7 +43,7 @@ export default function Login() {
   }
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      <h1 className={styles.header}>Logowanie</h1>
+      <h1 className={styles.header}>Login</h1>
 
       {loading === 'success' && (
         <Alert variant='success'>
@@ -83,7 +83,7 @@ export default function Login() {
         className={styles.input}
       />
       <label className={styles.label} htmlFor='password'>
-        Hasło:
+        Password:
       </label>
       <input
         type='password'
@@ -94,14 +94,14 @@ export default function Login() {
       />
       <div className={styles.buttons}>
         <button type='submit' className={styles.saveBtn}>
-          Zaloguj
+          Log in
         </button>
         <button
           type='button'
           className={styles.cancelBtn}
           onClick={handleClickCancel}
         >
-          Anuluj
+          Cancel
         </button>
       </div>
     </form>

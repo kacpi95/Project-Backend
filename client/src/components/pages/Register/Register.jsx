@@ -51,7 +51,7 @@ export default function Register() {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.header}>Rejestracja</h1>
+      <h1 className={styles.header}>Registration</h1>
       {loading === 'success' && (
         <Alert variant='success'>
           <Alert.Heading>Success!</Alert.Heading>
@@ -99,7 +99,7 @@ export default function Register() {
         />
 
         <label className={styles.label} htmlFor='password'>
-          Hasło:
+          Password:
         </label>
         <input
           type='password'
@@ -110,7 +110,7 @@ export default function Register() {
         />
 
         <label className={styles.label} htmlFor='number'>
-          Numer telefonu:
+          Telephone number:
         </label>
         <input
           type='number'
@@ -132,14 +132,14 @@ export default function Register() {
 
         <div className={styles.buttons}>
           <button type='submit' className={styles.saveBtn}>
-            Zapisz
+            Save
           </button>
           <button
             type='button'
             className={styles.cancelBtn}
             onClick={handleClickCancel}
           >
-            Anuluj
+            Cancel
           </button>
         </div>
       </form>

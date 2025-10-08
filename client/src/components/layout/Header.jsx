@@ -22,7 +22,7 @@ export default function Header({ user }) {
                 Sign out
               </button>
               <span className={styles.userInfo}>
-                Zalogowany jako: {user.login}
+                Logged in as: {user.login}
               </span>
             </>
           ) : (
@@ -39,7 +39,7 @@ export default function Header({ user }) {
         <h1 className={styles.title}>MyAds</h1>
         <div className={styles.navRight}>
           <Link to={'/ads/add'} className={styles.addAdLink}>
-            Dodaj nowe ogłoszenie +
+            Add a new ad +
           </Link>
         </div>
       </nav>

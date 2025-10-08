@@ -17,10 +17,10 @@ export default function AdsPage() {
   }, [dispatch, id]);
 
   if (loading || !currentAd || typeof currentAd.userId !== 'object') {
-    return <p>Ładowanie...</p>;
+    return <p>Loading...</p>;
   }
-  if (error) return <p>Błąd {error}</p>;
-  if (!currentAd) return <p>Brak danych...</p>;
+  if (error) return <p>Error {error}</p>;
+  if (!currentAd) return <p>Not Data...</p>;
 
   function handleClickEditAds(e) {
     e.preventDefault();
@@ -58,10 +58,10 @@ export default function AdsPage() {
         {userTrue && (
           <div className={styles.buttons}>
             <button className={styles.editBtn} onClick={handleClickEditAds}>
-              Edytuj
+              Edit
             </button>
             <button className={styles.deleteBtn} onClick={handleClickDeleteAd}>
-              Usuń
+              Remove
             </button>
           </div>
         )}

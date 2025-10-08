@@ -9,17 +9,23 @@ export const fetchAds = createAsyncThunk('ads/fetchAll', async () => {
 });
 
 export const fetchAdId = createAsyncThunk('ads/fetchById', async (id) => {
-  const res = await axios.get(`${API_URL}/ads/${id}`, { withCredentials: true });
+  const res = await axios.get(`${API_URL}/ads/${id}`, {
+    withCredentials: true,
+  });
   return res.data;
 });
 
 export const addAd = createAsyncThunk('ads/addAd', async (adData) => {
-  const res = await axios.post(`${API_URL}/ads`, adData, { withCredentials: true });
+  const res = await axios.post(`${API_URL}/ads`, adData, {
+    withCredentials: true,
+  });
   return res.data;
 });
 
 export const deleteAd = createAsyncThunk('ads/deleteAd', async (id) => {
-  const res = await axios.delete(`${API_URL}/ads/${id}`, { withCredentials: true });
+  const res = await axios.delete(`${API_URL}/ads/${id}`, {
+    withCredentials: true,
+  });
   return res.data;
 });
 
@@ -32,6 +38,14 @@ export const updateAd = createAsyncThunk(
     return res.data;
   }
 );
+export const searchAds = createAsyncThunk('ads/search', async (searchId) => {
+  if (!searchId) {
+    const res = await axios.get(`${API_URL}/ads`);
+    return res.data;
+  }
+  const res = await axios.get(`${API_URL}/ads/search/${searchId}`);
+  return res.data;
+});
 
 const adsSlice = createSlice({
   name: 'ads',
@@ -70,6 +84,18 @@ const adsSlice = createSlice({
       if (index !== -1) {
         state.list[index] = action.payload;
       }
+    });
+    builder.addCase(searchAds.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(searchAds.fulfilled, (state, action) => {
+      state.loading = false;
+      state.list = action.payload;
+    });
+    builder.addCase(searchAds.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
     });
   },
 });

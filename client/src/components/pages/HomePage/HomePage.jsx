@@ -2,29 +2,37 @@ import styles from './HomePage.module.css';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { fetchAds } from '../../redux/adsRedux';
-import { useParams } from 'react-router-dom';
+import { fetchAds, searchAds } from '../../redux/adsRedux';
+import { useState } from 'react';
 
 export default function Home() {
   const dispatch = useDispatch();
-  const { id } = useParams();
 
   const { list, loading, error } = useSelector((state) => state.ads);
 
-  useEffect(() => {
-    dispatch(fetchAds(id));
-  }, [dispatch, id]);
+  const [searchId, setSearchId] = useState('');
 
-  if (loading) return <p>Ładwanie...</p>;
-  if (error) return <p>Błąd: {error}</p>;
+  useEffect(() => {
+    dispatch(fetchAds());
+  }, [dispatch]);
+
+  const handleClickSearch = (e) => {
+    e.preventDefault();
+    dispatch(searchAds(searchId));
+  };
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
 
   return (
     <div className={styles.container}>
-      <form className={styles.searchForm}>
+      <form className={styles.searchForm} onSubmit={handleClickSearch}>
         <input
           className={styles.searchInput}
           type='text'
           placeholder='Search ...'
+          value={searchId}
+          onChange={(e) => setSearchId(e.target.value)}
         />
         <button type='submit' className={styles.searchButton}>
           Search
