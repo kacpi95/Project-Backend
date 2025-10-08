@@ -11,7 +11,10 @@ exports.getAll = async (req, res) => {
 
 exports.getAdsId = async (req, res) => {
   try {
-    const notice = await Ads.findById(req.params.id);
+    const notice = await Ads.findById(req.params.id).populate(
+      'userId',
+      'login numberPhone avatar'
+    );
     if (!notice) res.status(404).json({ message: 'Not found' });
     res.json(notice);
   } catch (err) {

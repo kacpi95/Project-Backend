@@ -1,6 +1,5 @@
 import styles from './HomePage.module.css';
 import { Link } from 'react-router-dom';
-import logo from './kacpiAI.jpg';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchAds } from '../../redux/adsRedux';
@@ -33,9 +32,10 @@ export default function Home() {
       </form>
       <div className={styles.grid}>
         {list.map((ad) => {
+          const adImageUrl = `/uploads/${ad.image}`;
           return (
             <div key={ad._id} className={styles.card}>
-              <img src={logo} alt={ad.title} className={styles.image} />
+              <img src={adImageUrl} alt={ad.title} className={styles.image} />
               <h3 className={styles.title}>{ad.title}</h3>
               <p className={styles.location}>{ad.location}</p>
               <Link className={styles.readMore} to={`/ads/${ad._id}`}>

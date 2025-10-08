@@ -16,21 +16,14 @@ export default function Header({ user }) {
           <Link to='/' className={styles.link}>
             Home
           </Link>
-          {/* <button className={styles.linkButton}>Sign out</button>
-          <Link to='/signin' className={styles.link}>
-            Sign in
-          </Link>
-          <Link to='/signup' className={styles.link}>
-            Sign up
-          </Link> */}
           {user ? (
             <>
-              <span className={styles.userInfo}>
-                Zalogowany jako: {user.login}
-              </span>
               <button onClick={handleLogout} className={styles.linkButton}>
                 Sign out
               </button>
+              <span className={styles.userInfo}>
+                Zalogowany jako: {user.login}
+              </span>
             </>
           ) : (
             <>
