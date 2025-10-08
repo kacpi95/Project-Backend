@@ -30,6 +30,7 @@ exports.postAds = async (req, res) => {
       price,
       location,
       aboutSeller,
+      userId: req.session.user.id,
     });
     await newNotice.save();
     res.json(newNotice);
@@ -41,9 +42,15 @@ exports.postAds = async (req, res) => {
 
 exports.deleteAds = async (req, res) => {
   try {
-    const notice = await Ads.findByIdAndDelete(req.params.id);
+    const notice = await Ads.findById(req.params.id);
+
     if (!notice) res.status(404).json({ message: 'Not Found' });
-    else res.json(notice);
+
+    if (notice.userId.toString() !== req.session.user.id) {
+      return res.status(404).json({ message: 'You are not author ad' });
+    }
+    await Ads.findByIdAndDelete(req.params.id);
+    res.json({ message: 'Ad deleted success' });
   } catch (err) {
     res.status(500).json({ message: err });
   }
@@ -52,8 +59,12 @@ exports.deleteAds = async (req, res) => {
 exports.putAds = async (req, res) => {
   try {
     const notice = await Ads.findById(req.params.id);
-    if (!notice) res.status(404).json({ message: 'Not Found' });
 
+    if (!notice) return res.status(404).json({ message: 'Not Found' });
+
+    if (notice.userId.toHexString() !== req.session.user.id) {
+      return res.status(403).json({ message: 'You are not author ad' });
+    }
     const oldImage = notice.image;
 
     if (req.file) {
