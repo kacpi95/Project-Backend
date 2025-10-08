@@ -4,29 +4,31 @@ import axios from 'axios';
 const API_URL = 'http://localhost:8000/api';
 
 export const fetchAds = createAsyncThunk('ads/fetchAll', async () => {
-  const res = await axios.get(`${API_URL}/ads`);
+  const res = await axios.get(`${API_URL}/ads`, { withCredentials: true });
   return res.data;
 });
 
 export const fetchAdId = createAsyncThunk('ads/fetchById', async (id) => {
-  const res = await axios.get(`${API_URL}/ads/${id}`);
+  const res = await axios.get(`${API_URL}/ads/${id}`, { withCredentials: true });
   return res.data;
 });
 
 export const addAd = createAsyncThunk('ads/addAd', async (adData) => {
-  const res = await axios.post(`${API_URL}/ads`, adData);
+  const res = await axios.post(`${API_URL}/ads`, adData, { withCredentials: true });
   return res.data;
 });
 
 export const deleteAd = createAsyncThunk('ads/deleteAd', async (id) => {
-  const res = await axios.delete(`${API_URL}/ads/${id}`);
+  const res = await axios.delete(`${API_URL}/ads/${id}`, { withCredentials: true });
   return res.data;
 });
 
 export const updateAd = createAsyncThunk(
   'ads/updateAd',
   async ({ id, adData }) => {
-    const res = await axios.put(`${API_URL}/ads/${id}`, adData);
+    const res = await axios.put(`${API_URL}/ads/${id}`, adData, {
+      withCredentials: true,
+    });
     return res.data;
   }
 );
