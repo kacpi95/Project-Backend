@@ -12,6 +12,7 @@ import Login from './components/pages/Login/Login';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchUser } from './components/redux/authRedux';
+import SafeRoute from './components/common/SafeRoute/SafeRoute';
 
 function App() {
   const dispatch = useDispatch();
@@ -33,8 +34,22 @@ function App() {
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
         <Route path='/ads/:id' element={<AdsPage />} />
-        <Route path='/ads/:id/edit' element={<EditPage />} />
-        <Route path='/ads/add' element={<AddPage />} />
+        <Route
+          path='/ads/:id/edit'
+          element={
+            <SafeRoute>
+              <EditPage />
+            </SafeRoute>
+          }
+        />
+        <Route
+          path='/ads/add'
+          element={
+            <SafeRoute>
+              <AddPage />
+            </SafeRoute>
+          }
+        />
         <Route path='*' element={<NoPage />} />
       </Routes>
     </BrowserRouter>
