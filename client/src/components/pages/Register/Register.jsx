@@ -107,7 +107,7 @@ export default function Register() {
 
         <div className={styles.buttons}>
           <Button type='submit' className={styles.saveBtn}>
-            Save
+            Register
           </Button>
           <Button className={styles.cancelBtn} onClick={handleClickCancel}>
             Cancel

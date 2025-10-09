@@ -17,6 +17,7 @@ export default function AddPage() {
     location: '',
     aboutSeller: '',
   });
+  const [error, setError] = useState({});
 
   function handleChange(e) {
     const { id, value, files } = e.target;
@@ -33,6 +34,21 @@ export default function AddPage() {
 
   async function handleClickAddAd(e) {
     e.preventDefault();
+
+    const newErrors = {};
+    if (!data.title.trim()) newErrors.title = 'Tytuł nie może być pusty.';
+    if (!data.text.trim())
+      newErrors.text = 'Treść ogłoszenia nie może być pusta.';
+    if (!data.price.trim()) newErrors.price = 'Cena nie może być pusta.';
+    if (!data.location.trim())
+      newErrors.location = 'Lokalizacja nie może być pusta.';
+    if (!data.image) newErrors.image = 'Proszę dodać zdjęcie.';
+
+    if (Object.keys(newErrors).length > 0) {
+      setError(newErrors);
+      return;
+    }
+    setError({});
 
     const formData = new FormData();
     formData.append('title', data.title);
@@ -54,6 +70,7 @@ export default function AddPage() {
         onCancel={handleClickCancel}
         onChange={handleChange}
         onSubmit={handleClickAddAd}
+        error={error}
       />
     </div>
   );

@@ -36,3 +36,12 @@
   background-color: #fff;
   border: 1px solid #b71c1c;
 }
+
+.error {
+  text-align: center;
+  color: #b71c1c;
+  font-size: 15px;
+  font-weight: 500;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}

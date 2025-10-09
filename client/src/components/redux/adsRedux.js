@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8000/api';
+const API_URL = process.env.REACT_APP_API_URL_ADS;
 
 export const fetchAds = createAsyncThunk('ads/fetchAll', async () => {
   const res = await axios.get(`${API_URL}/ads`, { withCredentials: true });
