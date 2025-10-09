@@ -13,7 +13,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: 'http://localhost:3000',
+    origin: process.env.CLIENT_URL,
     credentials: true,
   })
 );
@@ -34,11 +34,11 @@ app.use(
 app.use('/api/ads', adsRoutes);
 app.use('/auth', authRoutes);
 
-app.use(express.static(path.join(__dirname, '/client/build')));
+// app.use(express.static(path.join(__dirname, '/client/build')));
 app.use('/uploads', express.static(path.join(__dirname, '/public/uploads')));
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build/index.html'));
-});
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'client/build/index.html'));
+// });
 
 app.use((req, res) => {
   res.status(404).json({ message: '404 not found...' });
