@@ -3,9 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router';
 import { fetchAdId, updateAd } from '../../redux/adsRedux';
 import { useEffect, useState } from 'react';
-import Button from '../../common/Button/Button';
-import Input from '../../common/Input/Input';
-import Label from '../../common/Label/Label';
+import Form from '../../features/Form/Form';
 
 export default function EditPage() {
   const dispatch = useDispatch();
@@ -16,11 +14,13 @@ export default function EditPage() {
   const [data, setData] = useState({
     title: '',
     text: '',
-    image: '',
+    image: null,
     price: '',
     location: '',
     aboutSeller: '',
   });
+
+  const [imageUrl, setImageUrl] = useState('');
 
   useEffect(() => {
     dispatch(fetchAdId(id));
@@ -31,22 +31,40 @@ export default function EditPage() {
       setData({
         title: currentAd.title || '',
         text: currentAd.text || '',
-        image: currentAd.image || '',
+        image: null,
         price: currentAd.price || '',
         location: currentAd.location || '',
         aboutSeller: currentAd.aboutSeller || '',
       });
+      setImageUrl(`http://localhost:8000/uploads/${currentAd.image}`);
     }
   }, [currentAd]);
 
   function handleChange(e) {
-    const { id, value } = e.target;
-    setData((prev) => ({ ...prev, [id]: value }));
+    const { id, value, files, type } = e.target;
+
+    if (type === 'file') {
+      setData((prev) => ({ ...prev, [id]: files[0] }));
+    } else {
+      setData((prev) => ({ ...prev, [id]: value }));
+    }
   }
 
   async function handleClickSaveChanges(e) {
     e.preventDefault();
-    await dispatch(updateAd({ id, adData: data }));
+
+    const formData = new FormData();
+    formData.append('title', data.title);
+    formData.append('text', data.text);
+    formData.append('price', data.price);
+    formData.append('location', data.location);
+    formData.append('aboutSeller', data.aboutSeller);
+
+    if (data.image) {
+      formData.append('image', data.image);
+    }
+
+    await dispatch(updateAd({ id, adData: formData }));
     navigate('/');
   }
 
@@ -58,70 +76,13 @@ export default function EditPage() {
   return (
     <div className={styles.container}>
       <h1 className={styles.header}>Edit Ad</h1>
-      <form className={styles.form} onSubmit={handleClickSaveChanges}>
-        <Label htmlFor='title'>Title:</Label>
-        <Input
-          id='title'
-          type='text'
-          className={styles.input}
-          value={data.title}
-          onChange={handleChange}
-        />
-
-        <Label htmlFor='text'>Text:</Label>
-        <Input
-          id='text'
-          type='text'
-          className={styles.input}
-          value={data.text}
-          onChange={handleChange}
-        />
-
-        <Label htmlFor='image'>Photo:</Label>
-        <Input
-          id='image'
-          type='text'
-          className={styles.input}
-          value={data.image}
-          onChange={handleChange}
-        />
-
-        <Label htmlFor='price'>Price:</Label>
-        <Input
-          type='number'
-          id='price'
-          className={styles.input}
-          value={data.price}
-          onChange={handleChange}
-        />
-
-        <Label htmlFor='location'>Location:</Label>
-        <Input
-          id='location'
-          type='text'
-          className={styles.input}
-          value={data.location}
-          onChange={handleChange}
-        />
-
-        <Label htmlFor='aboutSeller'>About the seller:</Label>
-        <Input
-          id='aboutSeller'
-          type='text'
-          className={styles.input}
-          value={data.aboutSeller}
-          onChange={handleChange}
-        />
-
-        <div className={styles.buttons}>
-          <Button type='submit' className={styles.saveBtn}>
-            Save
-          </Button>
-          <Button className={styles.cancelBtn} onClick={handleClickCancel}>
-            Cancel
-          </Button>
-        </div>
-      </form>
+      <Form
+        data={data}
+        onCancel={handleClickCancel}
+        onChange={handleChange}
+        onSubmit={handleClickSaveChanges}
+        imageUrl={imageUrl}
+      />
     </div>
   );
 }
