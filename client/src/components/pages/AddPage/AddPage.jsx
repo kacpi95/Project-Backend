@@ -36,13 +36,12 @@ export default function AddPage() {
     e.preventDefault();
 
     const newErrors = {};
-    if (!data.title.trim()) newErrors.title = 'Tytuł nie może być pusty.';
+    if (!data.title.trim()) newErrors.title = 'Title cannot be empty';
     if (!data.text.trim())
-      newErrors.text = 'Treść ogłoszenia nie może być pusta.';
-    if (!data.price.trim()) newErrors.price = 'Cena nie może być pusta.';
-    if (!data.location.trim())
-      newErrors.location = 'Lokalizacja nie może być pusta.';
-    if (!data.image) newErrors.image = 'Proszę dodać zdjęcie.';
+      newErrors.text = 'The content of the advertisement cannot be empty';
+    if (!data.price.trim()) newErrors.price = 'Price cannot be empty';
+    if (!data.location.trim()) newErrors.location = 'Location cannot be empty';
+    if (!data.image) newErrors.image = 'Please add a photo';
 
     if (Object.keys(newErrors).length > 0) {
       setError(newErrors);
