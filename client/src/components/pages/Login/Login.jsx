@@ -6,12 +6,11 @@ import { login } from '../../redux/authRedux';
 import Button from '../../common/Button/Button';
 import Input from '../../common/Input/Input';
 import Label from '../../common/Label/Label';
-import StatusAlertLogin from '../../features/StatusAlert/StatusAlert.Login';
 
 export default function Login() {
   const [loginValue, setLoginValue] = useState('');
   const [password, setPassword] = useState('');
-  const [status, setStatus] = useState(null);
+  const [error, setError] = useState('');
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -19,7 +18,12 @@ export default function Login() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    setStatus('loading');
+    if (!loginValue.trim() || !password.trim()) {
+      setError('Please fill in the login and password fields');
+      return;
+    }
+
+    setError('');
 
     try {
       const resultAction = await dispatch(
@@ -27,30 +31,26 @@ export default function Login() {
       );
 
       if (login.fulfilled.match(resultAction)) {
-        setStatus('success');
-        setTimeout(() => {
-          navigate('/');
-        }, 1500);
+        navigate('/');
       } else if (login.rejected.match(resultAction)) {
-        const errorMsg = resultAction.error.message;
-
-        if (errorMsg.includes('400')) setStatus('clientError');
-        else setStatus('serverError');
+        setError('Incorrect login or password');
+        alert('Incorrect login or password');
       }
-    } catch (error) {
-      setStatus('serverError');
-      console.error(error);
+    } catch (err) {
+      setError('A server error occurred. Please try again later');
+      console.error(err);
     }
   }
+
   function handleClickCancel() {
     navigate('/');
   }
+
   return (
     <div className={styles.container}>
       <h1 className={styles.header}>Login</h1>
       <form className={styles.form} onSubmit={handleSubmit}>
-        <StatusAlertLogin status={status} />
-
+        {error && <p className={styles.error}>{error}</p>}
         <Label htmlFor='login'>Login:</Label>
         <Input
           type='text'

@@ -41,7 +41,13 @@ export default function StatusAlertRegister({ status }) {
           <span className='visually-hidden'>Loading...</span>
         </Spinner>
       );
-
+    case 'validationError':
+      return (
+        <Alert variant='warning'>
+          <Alert.Heading>Missing data</Alert.Heading>
+          <p>Please fill in the fields</p>
+        </Alert>
+      );
     default:
       return null;
   }
