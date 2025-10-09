@@ -3,18 +3,17 @@ import styles from './Register.module.css';
 import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { register } from '../../redux/authRedux';
-import Spinner from 'react-bootstrap/Spinner';
-import Alert from 'react-bootstrap/Alert';
 import Button from '../../common/Button/Button';
 import Input from '../../common/Input/Input';
 import Label from '../../common/Label/Label';
+import StatusAlertRegister from '../../features/StatusAlertRegister/StatusAlertRegister';
 
 export default function Register() {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [number, setNumber] = useState('');
   const [avatar, setAvatar] = useState(null);
-  const [loading, setLoading] = useState(null);
+  const [status, setStatus] = useState(null);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -28,23 +27,23 @@ export default function Register() {
     formData.append('numberPhone', number);
     formData.append('avatar', avatar);
 
-    setLoading('loading');
+    setStatus('loading');
 
     try {
       const resultAction = await dispatch(register(formData));
 
       if (register.fulfilled.match(resultAction)) {
-        setLoading('success');
+        setStatus('success');
         navigate('/login');
       } else if (register.rejected.match(resultAction)) {
         const errorMsg = resultAction.error.message;
 
-        if (errorMsg.includes('400')) setLoading('clientError');
-        else if (errorMsg.includes('409')) setLoading('loginError');
-        else setLoading('serverError');
+        if (errorMsg.includes('400')) setStatus('clientError');
+        else if (errorMsg.includes('409')) setStatus('loginError');
+        else setStatus('serverError');
       }
     } catch (error) {
-      setLoading('serverError');
+      setStatus('serverError');
       console.error(error);
     }
   }
@@ -55,39 +54,7 @@ export default function Register() {
   return (
     <div className={styles.container}>
       <h1 className={styles.header}>Registration</h1>
-      {loading === 'success' && (
-        <Alert variant='success'>
-          <Alert.Heading>Success!</Alert.Heading>
-          <p>You have been successfully registered! You can now log in..</p>
-        </Alert>
-      )}
-
-      {loading === 'serverError' && (
-        <Alert variant='danger'>
-          <Alert.Heading>Something went wrong..</Alert.Heading>
-          <p>Unexpected error... Try again!</p>
-        </Alert>
-      )}
-
-      {loading === 'clientError' && (
-        <Alert variant='danger'>
-          <Alert.Heading>No enough data</Alert.Heading>
-          <p>You have to fill all the fields.</p>
-        </Alert>
-      )}
-
-      {loading === 'loginError' && (
-        <Alert variant='warning'>
-          <Alert.Heading>Login already in use</Alert.Heading>
-          <p>You have to user other login.</p>
-        </Alert>
-      )}
-
-      {loading === 'loading' && (
-        <Spinner animation='border' role='status' className='d-block mx-auto'>
-          <span className='visually-hidden'>Loading...</span>
-        </Spinner>
-      )}
+      <StatusAlertRegister status={status} />
 
       <form className={styles.form} onSubmit={handleSubmit}>
         <Label htmlFor='login'>Login:</Label>
