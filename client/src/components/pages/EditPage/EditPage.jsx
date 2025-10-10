@@ -20,6 +20,8 @@ export default function EditPage() {
     aboutSeller: '',
   });
 
+  const [imageUrl, setImageUrl] = useState('');
+
   useEffect(() => {
     dispatch(fetchAdId(id));
   }, [dispatch, id]);
@@ -34,6 +36,7 @@ export default function EditPage() {
         location: currentAd.location || '',
         aboutSeller: currentAd.aboutSeller || '',
       });
+      setImageUrl(`http://localhost:8000/uploads/${currentAd.image}`);
     }
   }, [currentAd]);
 
@@ -69,7 +72,6 @@ export default function EditPage() {
     e.preventDefault();
     navigate('/');
   }
-  const imageUrl = `${process.env.REACT_APP_API_ROOT}/uploads/${currentAd.image}`;
 
   return (
     <div className={styles.container}>

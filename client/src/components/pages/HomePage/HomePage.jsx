@@ -43,7 +43,7 @@ export default function Home() {
       </form>
       <div className={styles.grid}>
         {list.map((ad) => {
-          const adImageUrl = `${process.env.REACT_APP_API_ROOT}/uploads/${ad.image}`;
+          const adImageUrl = `/uploads/${ad.image}`;
           return (
             <div key={ad._id} className={styles.card}>
               <img src={adImageUrl} alt={ad.title} className={styles.image} />
