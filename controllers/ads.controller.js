@@ -25,6 +25,10 @@ exports.getAdsId = async (req, res) => {
 exports.postAds = async (req, res) => {
   const { title, text, price, location, aboutSeller } = req.body;
 
+  if (!req.file) {
+    return res.status(400).json({ message: 'Image file is required.' });
+  }
+
   try {
     const newNotice = new Ads({
       title,
@@ -38,8 +42,11 @@ exports.postAds = async (req, res) => {
     await newNotice.save();
     res.json(newNotice);
   } catch (err) {
-    removeFile(req.file);
-    res.status(500).json({ message: err });
+    if (req.file) {
+      const fs = require('fs');
+      fs.unlinkSync(req.file.path);
+    }
+    res.status(500).json({ message: err.message });
   }
 };
 

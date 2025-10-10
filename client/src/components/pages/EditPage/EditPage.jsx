@@ -4,30 +4,24 @@ import { useNavigate, useParams } from 'react-router';
 import { fetchAdId, updateAd } from '../../redux/adsRedux';
 import { useEffect, useState } from 'react';
 import Form from '../../features/Form/Form';
+import Spinner from 'react-bootstrap/Spinner';
 
 export default function EditPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
-  const { currentAd } = useSelector((state) => state.ads);
+  const { currentAd, loading } = useSelector((state) => state.ads);
 
-  const [data, setData] = useState({
-    title: '',
-    text: '',
-    image: null,
-    price: '',
-    location: '',
-    aboutSeller: '',
-  });
+  const [data, setData] = useState(null);
 
-  const [imageUrl, setImageUrl] = useState('');
+  // const [imageUrl, setImageUrl] = useState('');
 
   useEffect(() => {
     dispatch(fetchAdId(id));
   }, [dispatch, id]);
 
   useEffect(() => {
-    if (currentAd) {
+    if (currentAd && currentAd._id === id) {
       setData({
         title: currentAd.title || '',
         text: currentAd.text || '',
@@ -35,16 +29,16 @@ export default function EditPage() {
         price: currentAd.price || '',
         location: currentAd.location || '',
         aboutSeller: currentAd.aboutSeller || '',
+        actuImage: currentAd.image,
       });
-      setImageUrl(`http://localhost:8000/uploads/${currentAd.image}`);
     }
-  }, [currentAd]);
+  }, [currentAd, id]);
 
   function handleChange(e) {
     const { id, value, files, type } = e.target;
 
-    if (type === 'file') {
-      setData((prev) => ({ ...prev, [id]: files[0] }));
+    if (type === 'image') {
+      setData((prev) => ({ ...prev, image: files[0] }));
     } else {
       setData((prev) => ({ ...prev, [id]: value }));
     }
@@ -68,10 +62,18 @@ export default function EditPage() {
     navigate('/');
   }
 
-  function handleClickCancel(e) {
-    e.preventDefault();
+  function handleClickCancel() {
     navigate('/');
   }
+
+  if (loading || !data) {
+    return (
+      <div className={styles.loadingContainer}>
+        <Spinner animation='border' />
+      </div>
+    );
+  }
+  const imageUr = `${process.env.REACT_APP_API_URL_ADS}/../uploads/${data.actuImage}`;
 
   return (
     <div className={styles.container}>
@@ -81,7 +83,8 @@ export default function EditPage() {
         onCancel={handleClickCancel}
         onChange={handleChange}
         onSubmit={handleClickSaveChanges}
-        imageUrl={imageUrl}
+        imageUrl={imageUr}
+        error={{}}
       />
     </div>
   );
