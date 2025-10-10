@@ -17,17 +17,20 @@ app.use(
     credentials: true,
   })
 );
+app.set('trust proxy', 1);
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
-    cookie: {
-      secure: process.env.NODE_ENV == 'production',
-    },
     store: MongoStore.create({ mongoUrl: process.env.MONGO_URL }),
     resave: false,
     saveUninitialized: false,
+    cookie: {
+      secure: process.env.NODE_ENV === 'production',
+      httpOnly: true,
+      sameSite: 'none',
+    },
   })
 );
 
