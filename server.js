@@ -10,7 +10,7 @@ const adsRoutes = require('./routes/ads.routes');
 const authRoutes = require('./routes/auth.routes');
 
 const app = express();
-
+app.set('trust proxy', 1);
 app.use(
   cors({
     origin: process.env.CLIENT_URL,
@@ -22,12 +22,14 @@ app.use(express.json());
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
-    cookie: {
-      secure: process.env.NODE_ENV == 'production',
-    },
     store: MongoStore.create({ mongoUrl: process.env.MONGO_URL }),
     resave: false,
     saveUninitialized: false,
+    cookie: {
+      secure: process.env.NODE_ENV === 'production',
+      httpOnly: true,
+      sameSite: 'none',
+    },
   })
 );
 
