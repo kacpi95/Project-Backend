@@ -1,15 +1,17 @@
 const multer = require('multer');
+const path = require('path');
 
 const storage = multer.diskStorage({
-  destination: (req, res, cb) => {
-    cb(null, './client/public/uploads');
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, '..', 'public', 'uploads'));
   },
   filename: (req, file, cb) => {
-    const [name, ext] = file.originalname.split('.');
-    cb(null, `${name}-${Date.now()}.${ext}`);
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+    const extension = path.extname(file.originalname);
+    cb(null, file.fieldname + '-' + uniqueSuffix + extension);
   },
 });
 
-const imageUpload = multer({ storage, limits: { fileSize: 1024 * 1024 * 2 } });
+const imageUpload = multer({ storage: storage });
 
 module.exports = imageUpload;
