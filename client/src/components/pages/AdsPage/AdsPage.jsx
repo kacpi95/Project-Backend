@@ -36,8 +36,8 @@ export default function AdsPage() {
 
   const userTrue = user && currentAd && user.id === currentAd.userId._id;
 
-  const adImageUrl = `/uploads/${currentAd.image}`;
-  const userAvatarUrl = `/uploads/${currentAd.userId.avatar}`;
+  const adImageUrl = `${process.env.REACT_APP_API_ROOT}/uploads/${currentAd.image}`;
+  const userAvatarUrl = `${process.env.REACT_APP_API_ROOT}/uploads/${currentAd.userId.avatar}`;
 
   return (
     <div className={styles.container}>
