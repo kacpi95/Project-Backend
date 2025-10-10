@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchUser } from './components/redux/authRedux';
 import SafeRoute from './components/common/SafeRoute/SafeRoute';
+import Spinner from 'react-bootstrap/Spinner';
 
 function App() {
   const dispatch = useDispatch();
@@ -23,7 +24,11 @@ function App() {
   }, [dispatch]);
 
   if (loading) {
-    return <p>Ładowanie użytkowika...</p>;
+    return (
+      <Spinner animation='border' role='status' className='d-block mx-auto'>
+        <span className='visually-hidden'>Loading...</span>
+      </Spinner>
+    );
   }
 
   return (
