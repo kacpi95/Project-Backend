@@ -15,6 +15,9 @@ export default function Home() {
 
   const [searchId, setSearchId] = useState('');
 
+  const BACKEND_URL =
+    process.env.REACT_APP_API_BACKEND || 'http://localhost:8000';
+
   useEffect(() => {
     dispatch(fetchAds());
   }, [dispatch]);
@@ -44,7 +47,7 @@ export default function Home() {
       </form>
       <div className={styles.grid}>
         {list.map((ad) => {
-          const adImageUrl = `/uploads/${ad.image}`;
+          const adImageUrl = `${BACKEND_URL}/uploads/${ad.image}`;
           return (
             <div key={ad._id} className={styles.card}>
               <img src={adImageUrl} alt={ad.title} className={styles.image} />
