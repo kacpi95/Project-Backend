@@ -6,11 +6,13 @@ import { login } from '../../redux/authRedux';
 import Button from '../../common/Button/Button';
 import Input from '../../common/Input/Input';
 import Label from '../../common/Label/Label';
+import SpinnerLoading from '../../common/SpinnerLoading/SpinnerLoading';
 
 export default function Login() {
   const [loginValue, setLoginValue] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(null);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -24,6 +26,7 @@ export default function Login() {
     }
 
     setError('');
+    setLoading(true);
 
     try {
       const resultAction = await dispatch(
@@ -39,11 +42,16 @@ export default function Login() {
     } catch (err) {
       setError('A server error occurred. Please try again later');
       console.error(err);
+    } finally {
+      setLoading(false);
     }
   }
 
   function handleClickCancel() {
     navigate('/');
+  }
+  if (loading) {
+    return <SpinnerLoading />;
   }
 
   return (

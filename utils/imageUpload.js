@@ -1,8 +1,15 @@
 const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
 
+const uploadsDir = path.join(__dirname, '../client/public/uploads');
+
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+}
 const storage = multer.diskStorage({
-  destination: (req, res, cb) => {
-    cb(null, './client/public/uploads');
+  destination: (req, file, cb) => {
+    cb(null, uploadsDir);
   },
   filename: (req, file, cb) => {
     const [name, ext] = file.originalname.split('.');

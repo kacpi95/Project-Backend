@@ -1,10 +1,18 @@
 const fs = require('fs');
 
 const getImageFileType = async (image) => {
+  if (!image || !image.path) {
+    return 'unknown';
+  }
   // Determine header bytes
   const determineHeader = () =>
     new Promise((resolve, reject) => {
       try {
+        if (!fs.existsSync(image.path)) {
+          reject(new Error('File does not exist'));
+          return;
+        }
+
         const file = fs.readFileSync(image.path, null).buffer;
         const arr = new Uint8Array(file).subarray(0, 4);
         const header = arr.reduce(

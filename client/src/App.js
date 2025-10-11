@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchUser } from './components/redux/authRedux';
 import SafeRoute from './components/common/SafeRoute/SafeRoute';
+import SpinnerLoading from './components/common/SpinnerLoading/SpinnerLoading';
 
 function App() {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ function App() {
   }, [dispatch]);
 
   if (loading) {
-    return <p>Ładowanie użytkowika...</p>;
+    return <SpinnerLoading />;
   }
 
   return (

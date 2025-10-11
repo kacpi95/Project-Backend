@@ -13,22 +13,28 @@ const app = express();
 app.set('trust proxy', 1);
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,
+    origin: process.env.CLIENT_URL || 'http://localhost:3000',
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
   })
 );
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(
   session({
-    secret: process.env.SESSION_SECRET,
-    store: MongoStore.create({ mongoUrl: process.env.MONGO_URL }),
+    secret: process.env.SESSION_SECRET || 'your-secret-key',
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO_URL,
+      touchAfter: 24 * 3600,
+    }),
     resave: false,
     saveUninitialized: false,
     cookie: {
       secure: process.env.NODE_ENV === 'production',
       httpOnly: true,
-      sameSite: 'none',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      maxAge: 24 * 60 * 60 * 1000,
     },
   })
 );
@@ -37,7 +43,10 @@ app.use('/api/ads', adsRoutes);
 app.use('/auth', authRoutes);
 
 // app.use(express.static(path.join(__dirname, '/client/build')));
-app.use('/uploads', express.static(path.join(__dirname, '/public/uploads')));
+app.use(
+  '/uploads',
+  express.static(path.join(__dirname, '/client/public/uploads'))
+);
 // app.get('*', (req, res) => {
 //   res.sendFile(path.join(__dirname, 'client/build/index.html'));
 // });

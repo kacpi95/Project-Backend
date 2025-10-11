@@ -9,7 +9,7 @@ export default function Form({
   onChange,
   onCancel,
   imageUrl,
-  error,
+  error = {},
 }) {
   return (
     <form className={styles.form} onSubmit={onSubmit}>
@@ -21,7 +21,7 @@ export default function Form({
         value={data.title}
         onChange={onChange}
       />
-      {error.title && <p className={styles.error}>{error.title}</p>}
+      {error?.title && <p className={styles.error}>{error.title}</p>}
       <Label htmlFor='text'>Text:</Label>
       <Input
         id='text'
@@ -30,7 +30,7 @@ export default function Form({
         value={data.text}
         onChange={onChange}
       />
-      {error.text && <p className={styles.error}>{error.text}</p>}
+      {error?.text && <p className={styles.error}>{error.text}</p>}
 
       <Label htmlFor='image'>Photo:</Label>
       <Input
@@ -39,7 +39,7 @@ export default function Form({
         className={styles.input}
         onChange={onChange}
       />
-      {error.image && <p className={styles.error}>{error.image}</p>}
+      {error?.image && <p className={styles.error}>{error.image}</p>}
       {data.image instanceof File && (
         <>
           <Label>New Photo:</Label>
@@ -58,7 +58,7 @@ export default function Form({
         value={data.price}
         onChange={onChange}
       />
-      {error.price && <p className={styles.error}>{error.price}</p>}
+      {error?.price && <p className={styles.error}>{error.price}</p>}
       <Label htmlFor='location'>Location:</Label>
       <Input
         id='location'
@@ -67,7 +67,7 @@ export default function Form({
         value={data.location}
         onChange={onChange}
       />
-      {error.location && <p className={styles.error}>{error.location}</p>}
+      {error?.location && <p className={styles.error}>{error.location}</p>}
       <Label htmlFor='aboutSeller'>About the seller:</Label>
       <Input
         id='aboutSeller'
@@ -76,7 +76,7 @@ export default function Form({
         value={data.aboutSeller}
         onChange={onChange}
       />
-      {error.aboutSeller && <p className={styles.error}>{error.aboutSeller}</p>}
+      {error?.aboutSeller && <p className={styles.error}>{error.aboutSeller}</p>}
       <div className={styles.buttons}>
         <Button type='submit' className={styles.saveBtn}>
           Save

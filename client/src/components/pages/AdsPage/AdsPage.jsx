@@ -5,6 +5,7 @@ import { deleteAd, fetchAdId } from '../../redux/adsRedux';
 import { useParams } from 'react-router';
 import { useNavigate } from 'react-router';
 import Button from '../../common/Button/Button';
+import SpinnerLoading from '../../common/SpinnerLoading/SpinnerLoading';
 
 export default function AdsPage() {
   const dispatch = useDispatch();
@@ -12,13 +13,15 @@ export default function AdsPage() {
   const { id } = useParams();
   const { currentAd, loading, error } = useSelector((state) => state.ads);
   const { user } = useSelector((state) => state.auth);
+  const BACKEND_URL =
+    process.env.REACT_APP_API_BACKEND || 'http://localhost:8000';
 
   useEffect(() => {
     if (id) dispatch(fetchAdId(id));
   }, [dispatch, id]);
 
   if (loading || !currentAd || typeof currentAd.userId !== 'object') {
-    return <p>Loading...</p>;
+    return <SpinnerLoading />;
   }
   if (error) return <p>Error {error}</p>;
   if (!currentAd) return <p>Not Data...</p>;
@@ -36,8 +39,8 @@ export default function AdsPage() {
 
   const userTrue = user && currentAd && user.id === currentAd.userId._id;
 
-  const adImageUrl = `/uploads/${currentAd.image}`;
-  const userAvatarUrl = `/uploads/${currentAd.userId.avatar}`;
+  const adImageUrl = `${BACKEND_URL}/uploads/${currentAd.image}`;
+  const userAvatarUrl = `${BACKEND_URL}/uploads/${currentAd.userId.avatar}`;
 
   return (
     <div className={styles.container}>

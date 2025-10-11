@@ -4,12 +4,13 @@ import { useNavigate, useParams } from 'react-router';
 import { fetchAdId, updateAd } from '../../redux/adsRedux';
 import { useEffect, useState } from 'react';
 import Form from '../../features/Form/Form';
+import SpinnerLoading from '../../common/SpinnerLoading/SpinnerLoading';
 
 export default function EditPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
-  const { currentAd } = useSelector((state) => state.ads);
+  const { currentAd, loading } = useSelector((state) => state.ads);
 
   const [data, setData] = useState({
     title: '',
@@ -21,6 +22,11 @@ export default function EditPage() {
   });
 
   const [imageUrl, setImageUrl] = useState('');
+  const [loaded, setLoaded] = useState(false);
+  const [errors, setErrors] = useState({});
+
+  const BACKEND_URL =
+    process.env.REACT_APP_API_BACKEND || 'http://localhost:8000';
 
   useEffect(() => {
     dispatch(fetchAdId(id));
@@ -36,9 +42,10 @@ export default function EditPage() {
         location: currentAd.location || '',
         aboutSeller: currentAd.aboutSeller || '',
       });
-      setImageUrl(`http://localhost:8000/uploads/${currentAd.image}`);
+      setImageUrl(`${BACKEND_URL}/uploads/${currentAd.image}`);
+      setLoaded(true);
     }
-  }, [currentAd]);
+  }, [currentAd, BACKEND_URL, loaded]);
 
   function handleChange(e) {
     const { id, value, files, type } = e.target;
@@ -48,10 +55,23 @@ export default function EditPage() {
     } else {
       setData((prev) => ({ ...prev, [id]: value }));
     }
+
+    setErrors((prev) => ({ ...prev, [id]: '' }));
   }
 
   async function handleClickSaveChanges(e) {
     e.preventDefault();
+
+    const newErrors = {};
+    if (!data.title) newErrors.title = 'Title is required';
+    if (!data.text) newErrors.text = 'Text is required';
+    if (!data.price) newErrors.price = 'Price is required';
+    if (!data.location) newErrors.location = 'Location is required';
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
 
     const formData = new FormData();
     formData.append('title', data.title);
@@ -72,6 +92,9 @@ export default function EditPage() {
     e.preventDefault();
     navigate('/');
   }
+  if (loading || !setLoaded) {
+    return <SpinnerLoading />;
+  }
 
   return (
     <div className={styles.container}>
@@ -82,6 +105,7 @@ export default function EditPage() {
         onChange={handleChange}
         onSubmit={handleClickSaveChanges}
         imageUrl={imageUrl}
+        error={errors}
       />
     </div>
   );

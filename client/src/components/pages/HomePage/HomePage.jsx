@@ -6,6 +6,7 @@ import { fetchAds, searchAds } from '../../redux/adsRedux';
 import { useState } from 'react';
 import Button from '../../common/Button/Button';
 import Input from '../../common/Input/Input';
+import SpinnerLoading from '../../common/SpinnerLoading/SpinnerLoading';
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ export default function Home() {
     dispatch(searchAds(searchId));
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <SpinnerLoading />;
   if (error) return <p>Error: {error}</p>;
 
   return (
