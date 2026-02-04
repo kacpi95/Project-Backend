@@ -2,6 +2,7 @@ import styles from './Form.module.css';
 import Label from '../../common/Label/Label';
 import Input from '../../common/Input/Input';
 import Button from '../../common/Button/Button';
+import { useEffect, useState } from 'react';
 
 export default function Form({
   data,
@@ -11,6 +12,21 @@ export default function Form({
   imageUrl,
   error = {},
 }) {
+  const [previewUrl, setPreviewUrl] = useState(null);
+
+  useEffect(() => {
+    if (!(data.image instanceof File)) {
+      setPreviewUrl(null);
+      return;
+    }
+    const objectUrl = URL.createObjectURL(data.image);
+    setPreviewUrl(objectUrl);
+
+    return () => {
+      URL.revokeObjectURL(objectUrl);
+    };
+  }, [data.image]);
+
   return (
     <form className={styles.form} onSubmit={onSubmit}>
       <Label htmlFor='title'>Title:</Label>
@@ -22,6 +38,7 @@ export default function Form({
         onChange={onChange}
       />
       {error?.title && <p className={styles.error}>{error.title}</p>}
+
       <Label htmlFor='text'>Text:</Label>
       <Input
         id='text'
@@ -40,16 +57,25 @@ export default function Form({
         onChange={onChange}
       />
       {error?.image && <p className={styles.error}>{error.image}</p>}
-      {data.image instanceof File && (
+
+      {!previewUrl && imageUrl && (
+        <>
+          <Label>Current Photo:</Label>
+          <img src={imageUrl} alt='Current' className={styles.imagePreview} />
+        </>
+      )}
+
+      {previewUrl && (
         <>
           <Label>New Photo:</Label>
           <img
-            src={URL.createObjectURL(data.image)}
+            src={previewUrl}
             alt='New preview'
             className={styles.imagePreview}
           />
         </>
       )}
+
       <Label htmlFor='price'>Price:</Label>
       <Input
         id='price'
@@ -59,6 +85,7 @@ export default function Form({
         onChange={onChange}
       />
       {error?.price && <p className={styles.error}>{error.price}</p>}
+
       <Label htmlFor='location'>Location:</Label>
       <Input
         id='location'
@@ -68,6 +95,7 @@ export default function Form({
         onChange={onChange}
       />
       {error?.location && <p className={styles.error}>{error.location}</p>}
+
       <Label htmlFor='aboutSeller'>About the seller:</Label>
       <Input
         id='aboutSeller'
@@ -76,7 +104,10 @@ export default function Form({
         value={data.aboutSeller}
         onChange={onChange}
       />
-      {error?.aboutSeller && <p className={styles.error}>{error.aboutSeller}</p>}
+      {error?.aboutSeller && (
+        <p className={styles.error}>{error.aboutSeller}</p>
+      )}
+
       <div className={styles.buttons}>
         <Button type='submit' className={styles.saveBtn}>
           Save

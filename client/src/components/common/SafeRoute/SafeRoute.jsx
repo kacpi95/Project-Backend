@@ -5,7 +5,7 @@ export default function SafeRoute({ children }) {
   const user = useSelector((state) => state.auth.user);
 
   if (!user) {
-    return <Navigate to='/login' />;
+    return <Navigate to='/login' replace />;
   }
   return children;
 }

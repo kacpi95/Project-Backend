@@ -5,16 +5,19 @@ export default function Input({
   className = '',
   value,
   noDefaultClass = false,
+  type,
   ...props
 }) {
+  const classes = noDefaultClass
+    ? className
+    : `${styles.defaultInput} ${className}`;
+
+  if (type === 'file') {
+    return (
+      <input type={type} className={classes} onChange={onChange} {...props} />
+    );
+  }
   return (
-    <input
-      value={value}
-      className={
-        noDefaultClass ? className : `${styles.defaultInput} ${className}`
-      }
-      onChange={onChange}
-      {...props}
-    />
+    <input value={value} className={classes} onChange={onChange} {...props} />
   );
 }
