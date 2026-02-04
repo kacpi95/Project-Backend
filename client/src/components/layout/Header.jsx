@@ -9,7 +9,7 @@ export default function Header({ user }) {
 
   const handleLogout = async () => {
     try {
-      await dispatch(logout().unwrap());
+      await dispatch(logout());
     } catch (e) {
       console.error('Logout failed', e);
     } finally {
