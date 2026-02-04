@@ -36,7 +36,7 @@ export const updateAd = createAsyncThunk(
       withCredentials: true,
     });
     return res.data;
-  }
+  },
 );
 export const searchAds = createAsyncThunk('ads/search', async (searchId) => {
   if (!searchId) {
@@ -77,7 +77,7 @@ const adsSlice = createSlice({
       state.list.push(action.payload);
     });
     builder.addCase(deleteAd.fulfilled, (state, action) => {
-      state.list = state.list.filter((ad) => ad._id !== action.payload);
+      state.list = state.list.filter((ad) => ad._id !== action.payload._id);
     });
     builder.addCase(updateAd.fulfilled, (state, action) => {
       const index = state.list.findIndex((ad) => ad._id === action.payload._id);
