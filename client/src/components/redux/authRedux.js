@@ -45,21 +45,21 @@ const authSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload;
+        state.user = action.payload.user;
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       })
       .addCase(register.fulfilled, (state, action) => {
-        state.user = action.payload;
+        state.loading = false;
       })
       .addCase(fetchUser.pending, (state) => {
         state.loading = true;
       })
       .addCase(fetchUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload;
+        state.user = action.payload.user;
       })
       .addCase(fetchUser.rejected, (state, action) => {
         state.loading = false;

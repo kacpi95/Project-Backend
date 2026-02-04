@@ -77,7 +77,7 @@ const adsSlice = createSlice({
       state.list.push(action.payload);
     });
     builder.addCase(deleteAd.fulfilled, (state, action) => {
-      state.list = state.list.filter((ad) => ad._id !== action.payload._id);
+      state.list = state.list.filter((ad) => ad._id !== action.payload.id);
     });
     builder.addCase(updateAd.fulfilled, (state, action) => {
       const index = state.list.findIndex((ad) => ad._id === action.payload._id);

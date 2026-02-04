@@ -61,7 +61,7 @@ exports.deleteAds = async (req, res) => {
     if (notice.image) {
       removeFile({ path: path.join(__dirname, '..', 'uploads', notice.image) });
     }
-    return res.json({ message: 'Ad deleted success' });
+    return res.json({ id: req.params.id });
   } catch (err) {
     res.status(500).json({ message: err });
   }

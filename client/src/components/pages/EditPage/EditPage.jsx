@@ -45,7 +45,7 @@ export default function EditPage() {
       setImageUrl(`${BACKEND_URL}/uploads/${currentAd.image}`);
       setLoaded(true);
     }
-  }, [currentAd, BACKEND_URL, loaded]);
+  }, [currentAd, BACKEND_URL]);
 
   function handleChange(e) {
     const { id, value, files, type } = e.target;
@@ -92,7 +92,7 @@ export default function EditPage() {
     e.preventDefault();
     navigate('/');
   }
-  if (loading || !setLoaded) {
+  if (loading || !loaded) {
     return <SpinnerLoading />;
   }
 
