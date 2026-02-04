@@ -29,8 +29,7 @@ export default function EditPage() {
   const [formError, setFormError] = useState('');
   const [saving, setSaving] = useState(false);
 
-  const BACKEND_URL =
-    process.env.REACT_APP_API_BACKEND || 'http://localhost:8000';
+  const BACKEND_URL = process.env.REACT_APP_API_BACKEND;
 
   useEffect(() => {
     dispatch(fetchAdId(id));

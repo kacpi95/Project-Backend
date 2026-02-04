@@ -16,7 +16,7 @@ export default function AdsPage() {
   const { user } = useSelector((state) => state.auth);
 
   const BACKEND_URL =
-    process.env.REACT_APP_API_BACKEND || 'http://localhost:8000';
+    process.env.REACT_APP_API_BACKEND;
 
   useEffect(() => {
     if (id) dispatch(fetchAdId(id));

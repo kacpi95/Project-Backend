@@ -15,8 +15,7 @@ export default function Home() {
 
   const [searchId, setSearchId] = useState('');
 
-  const BACKEND_URL =
-    process.env.REACT_APP_API_BACKEND || 'http://localhost:8000';
+  const BACKEND_URL = process.env.REACT_APP_API_BACKEND;
 
   useEffect(() => {
     dispatch(fetchAds());
