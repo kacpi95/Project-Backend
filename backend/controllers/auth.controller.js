@@ -1,4 +1,4 @@
-const User = require('../models/user.model');
+const User = require('../models/user.model.js');
 const bcrypt = require('bcrypt');
 const getImageFileType = require('../utils/getImageFileType.js');
 const removeFile = require('../utils/removeFile.js');
