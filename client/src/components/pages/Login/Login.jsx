@@ -12,7 +12,7 @@ export default function Login() {
   const [loginValue, setLoginValue] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -29,19 +29,10 @@ export default function Login() {
     setLoading(true);
 
     try {
-      const resultAction = await dispatch(
-        login({ login: loginValue, password })
-      );
-
-      if (login.fulfilled.match(resultAction)) {
-        navigate('/');
-      } else if (login.rejected.match(resultAction)) {
-        setError('Incorrect login or password');
-        alert('Incorrect login or password');
-      }
+      await dispatch(login({ login: loginValue, password })).unwrap();
+      navigate('/');
     } catch (err) {
-      setError('A server error occurred. Please try again later');
-      console.error(err);
+      setError('Incorrect login or password');
     } finally {
       setLoading(false);
     }
@@ -50,15 +41,15 @@ export default function Login() {
   function handleClickCancel() {
     navigate('/');
   }
-  if (loading) {
-    return <SpinnerLoading />;
-  }
+
+  if (loading) return <SpinnerLoading />;
 
   return (
     <div className={styles.container}>
       <h1 className={styles.header}>Login</h1>
       <form className={styles.form} onSubmit={handleSubmit}>
         {error && <p className={styles.error}>{error}</p>}
+
         <Label htmlFor='login'>Login:</Label>
         <Input
           type='text'
@@ -66,6 +57,7 @@ export default function Login() {
           value={loginValue}
           onChange={(e) => setLoginValue(e.target.value)}
         />
+
         <Label htmlFor='password'>Password:</Label>
         <Input
           type='password'
@@ -73,8 +65,9 @@ export default function Login() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+
         <div className={styles.buttons}>
-          <Button type='submit' className={styles.saveBtn}>
+          <Button type='submit' className={styles.saveBtn} disabled={loading}>
             Log in
           </Button>
           <Button className={styles.cancelBtn} onClick={handleClickCancel}>

@@ -6,6 +6,7 @@ import { register } from '../../redux/authRedux';
 import Button from '../../common/Button/Button';
 import Input from '../../common/Input/Input';
 import Label from '../../common/Label/Label';
+import SpinnerLoading from '../../common/SpinnerLoading/SpinnerLoading';
 
 export default function Register() {
   const [login, setLogin] = useState('');
@@ -13,6 +14,7 @@ export default function Register() {
   const [number, setNumber] = useState('');
   const [avatar, setAvatar] = useState(null);
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -35,6 +37,7 @@ export default function Register() {
     }
 
     setErrors({});
+    setLoading(true);
 
     const formData = new FormData();
     formData.append('login', login);
@@ -43,26 +46,25 @@ export default function Register() {
     formData.append('avatar', avatar);
 
     try {
-      const resultAction = await dispatch(register(formData));
-
-      if (register.fulfilled.match(resultAction)) {
-        navigate('/login');
-      } else if (register.rejected.match(resultAction)) {
-        if (resultAction.payload?.message?.includes('Login already in use')) {
-          setErrors({ form: 'This login is already taken' });
-        } else {
-          setErrors({ form: 'An error occurred during registration' });
-        }
-      }
+      await dispatch(register(formData)).unwrap();
+      navigate('/login');
     } catch (err) {
-      setErrors({ form: 'A server error occurred. Please try again' });
-      console.error(err);
+      const msg = err?.message || '';
+      if (String(msg).toLowerCase().includes('exists')) {
+        setErrors({ form: 'This login is already taken' });
+      } else {
+        setErrors({ form: 'An error occurred during registration' });
+      }
+    } finally {
+      setLoading(false);
     }
   }
 
   function handleClickCancel() {
     navigate('/');
   }
+
+  if (loading) return <SpinnerLoading />;
 
   return (
     <div className={styles.container}>
@@ -106,7 +108,7 @@ export default function Register() {
         {errors.avatar && <p className={styles.error}>{errors.avatar}</p>}
 
         <div className={styles.buttons}>
-          <Button type='submit' className={styles.saveBtn}>
+          <Button type='submit' className={styles.saveBtn} disabled={loading}>
             Register
           </Button>
           <Button className={styles.cancelBtn} onClick={handleClickCancel}>

@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { addAd } from '../../redux/adsRedux';
 import Form from '../../features/Form/Form';
+import SpinnerLoading from '../../common/SpinnerLoading/SpinnerLoading';
 
 export default function AddPage() {
   const navigate = useNavigate();
@@ -18,11 +19,13 @@ export default function AddPage() {
     aboutSeller: '',
   });
   const [error, setError] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [formError, setFormError] = useState('');
 
   function handleChange(e) {
-    const { id, value, files } = e.target;
-    if (id === 'image') {
-      setData((prev) => ({ ...prev, image: files[0] }));
+    const { id, value, files, type } = e.target;
+    if (type === 'file') {
+      setData((prev) => ({ ...prev, [id]: files?.[0] || null }));
     } else {
       setData((prev) => ({ ...prev, [id]: value }));
     }
@@ -39,7 +42,7 @@ export default function AddPage() {
     if (!data.title.trim()) newErrors.title = 'Title cannot be empty';
     if (!data.text.trim())
       newErrors.text = 'The content of the advertisement cannot be empty';
-    if (!data.price.trim()) newErrors.price = 'Price cannot be empty';
+    if (!String(data.price).trim()) newErrors.price = 'Price cannot be empty';
     if (!data.location.trim()) newErrors.location = 'Location cannot be empty';
     if (!data.image) newErrors.image = 'Please add a photo';
 
@@ -47,7 +50,10 @@ export default function AddPage() {
       setError(newErrors);
       return;
     }
+
     setError({});
+    setFormError('');
+    setLoading();
 
     const formData = new FormData();
     formData.append('title', data.title);
@@ -55,15 +61,31 @@ export default function AddPage() {
     formData.append('price', data.price);
     formData.append('location', data.location);
     formData.append('aboutSeller', data.aboutSeller);
-    if (data.image) formData.append('image', data.image);
+    formData.append('image', data.image);
 
-    await dispatch(addAd(formData));
-    navigate('/');
+    try {
+      await dispatch(addAd(formData)).unwrap();
+      navigate('/');
+    } catch (err) {
+      const msg = String(err?.message || '').toLowerCase();
+
+      if (msg.includes('401') || msg.includes('unauthorized')) {
+        setFormError('You must be logged in to add an ad.');
+        navigate('/login');
+      } else {
+        setFormError('Could not add the ad. Please try again.');
+      }
+    } finally {
+      setLoading(false);
+    }
   }
+  if (loading) return <SpinnerLoading />;
 
   return (
     <div className={styles.container}>
       <h1 className={styles.header}>Add a new Ad</h1>
+
+      {formError && <p className={styles.error}>{formError}</p>}
       <Form
         data={data}
         onCancel={handleClickCancel}

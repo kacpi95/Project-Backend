@@ -11,8 +11,10 @@ export default function AdsPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
+
   const { currentAd, loading, error } = useSelector((state) => state.ads);
   const { user } = useSelector((state) => state.auth);
+
   const BACKEND_URL =
     process.env.REACT_APP_API_BACKEND || 'http://localhost:8000';
 
@@ -20,11 +22,22 @@ export default function AdsPage() {
     if (id) dispatch(fetchAdId(id));
   }, [dispatch, id]);
 
-  if (loading || !currentAd || typeof currentAd.userId !== 'object') {
-    return <SpinnerLoading />;
-  }
+  if (loading) return <SpinnerLoading />;
   if (error) return <p>Error {error}</p>;
   if (!currentAd) return <p>Not Data...</p>;
+
+  const seller = typeof currentAd.userId === 'object' ? currentAd.userId : null;
+
+  const userTrue = !!user && !!seller && String(user.id) === String(seller._id);
+
+  const adImageUrl = `${BACKEND_URL}/uploads/${currentAd.image}`;
+  const userAvatarUrl = seller?.avatar
+    ? `${BACKEND_URL}/uploads/${seller.avatar}`
+    : null;
+
+  const formattedDate = currentAd.date
+    ? new Date(currentAd.date).toLocaleString()
+    : '';
 
   function handleClickEditAds(e) {
     e.preventDefault();
@@ -37,28 +50,29 @@ export default function AdsPage() {
     navigate('/');
   }
 
-  const userTrue = user && currentAd && user.id === currentAd.userId._id;
-
-  const adImageUrl = `${BACKEND_URL}/uploads/${currentAd.image}`;
-  const userAvatarUrl = `${BACKEND_URL}/uploads/${currentAd.userId.avatar}`;
-
   return (
     <div className={styles.container}>
-      <div className={styles.user}>
-        <h2 className={styles.login}>{currentAd.userId?.login}</h2>
-        <p className={styles.number}>{currentAd.userId?.numberPhone}</p>
-        <img
-          src={userAvatarUrl}
-          className={styles.avatar}
-          alt={`Avatar of ${currentAd.userId?.login}`}
-        />
-      </div>
-      <div key={currentAd._id} className={styles.card}>
+      {seller && (
+        <div className={styles.user}>
+          <h2 className={styles.login}>{seller.login}</h2>
+          <p className={styles.number}>{seller.numberPhone}</p>
+          {userAvatarUrl && (
+            <img
+              src={userAvatarUrl}
+              className={styles.avatar}
+              alt={`Avatar of ${seller.login}`}
+            />
+          )}
+        </div>
+      )}
+
+      <div className={styles.card}>
         <img src={adImageUrl} alt={currentAd.title} className={styles.image} />
         <h3 className={styles.title}>{currentAd.title}</h3>
         <p className={styles.location}>{currentAd.location}</p>
         <p className={styles.text}>{currentAd.text}</p>
-        <p className={styles.date}>{currentAd.date}</p>
+        {formattedDate && <p className={styles.date}>{formattedDate}</p>}
+
         {userTrue && (
           <div className={styles.buttons}>
             <Button className={styles.editBtn} onClick={handleClickEditAds}>

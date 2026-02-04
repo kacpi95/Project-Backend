@@ -22,9 +22,20 @@ export default function Home() {
     dispatch(fetchAds());
   }, [dispatch]);
 
+  useEffect(() => {
+    if (searchId.trim() === '') {
+      dispatch(fetchAds());
+    }
+  }, [searchId, dispatch]);
+
   const handleClickSearch = (e) => {
     e.preventDefault();
-    dispatch(searchAds(searchId));
+    dispatch(searchAds(searchId.trim()));
+  };
+
+  const handleClear = () => {
+    setSearchId('');
+    dispatch(fetchAds());
   };
 
   if (loading) return <SpinnerLoading />;
@@ -41,10 +52,22 @@ export default function Home() {
           value={searchId}
           onChange={(e) => setSearchId(e.target.value)}
         />
+
         <Button type='submit' className={styles.searchBtn}>
           Search
         </Button>
+
+        {searchId.trim() !== '' && (
+          <Button
+            type='button'
+            className={styles.searchBtn}
+            onClick={handleClear}
+          >
+            Clear
+          </Button>
+        )}
       </form>
+
       <div className={styles.grid}>
         {list.map((ad) => {
           const adImageUrl = `${BACKEND_URL}/uploads/${ad.image}`;
