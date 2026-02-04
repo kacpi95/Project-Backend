@@ -17,7 +17,7 @@ app.use(
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
-  })
+  }),
 );
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -36,20 +36,13 @@ app.use(
       sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
       maxAge: 24 * 60 * 60 * 1000,
     },
-  })
+  }),
 );
 
 app.use('/api/ads', adsRoutes);
-app.use('/auth', authRoutes);
+app.use('/api/auth', authRoutes);
 
-// app.use(express.static(path.join(__dirname, '/client/build')));
-app.use(
-  '/uploads',
-  express.static(path.join(__dirname, '/client/public/uploads'))
-);
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, 'client/build/index.html'));
-// });
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use((req, res) => {
   res.status(404).json({ message: '404 not found...' });

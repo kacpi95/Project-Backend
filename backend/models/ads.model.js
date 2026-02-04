@@ -8,7 +8,7 @@ const adsSchema = new mongoose.Schema({
   price: { type: Number, required: true },
   location: { type: String, required: true },
   aboutSeller: { type: String },
-  userId: { type: mongoose.Schema.Types.ObjectId, require: true, ref: 'User' },
+  userId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User' },
 });
 
 module.exports = mongoose.model('Ads', adsSchema);

@@ -79,7 +79,7 @@ exports.login = async (req, res) => {
 exports.getUser = async (req, res) => {
   if (!req.session.user) {
     return res.status(200).json(null);
-  } else res.status(200).json(req.session.user);
+  } else res.status(200).json({ user: req.session.user || null });
 };
 
 exports.deleteLogout = async (req, res) => {

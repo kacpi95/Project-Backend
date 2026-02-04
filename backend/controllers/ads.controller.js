@@ -1,5 +1,6 @@
 const Ads = require('../models/ads.model');
 const removeFile = require('../utils/removeFile');
+const path = require('path');
 
 exports.getAll = async (req, res) => {
   try {
@@ -13,10 +14,10 @@ exports.getAdsId = async (req, res) => {
   try {
     const notice = await Ads.findById(req.params.id).populate(
       'userId',
-      'login numberPhone avatar'
+      'login numberPhone avatar',
     );
-    if (!notice) res.status(404).json({ message: 'Not found' });
-    res.json(notice);
+    if (!notice) return res.status(404).json({ message: 'Not found' });
+    return res.json(notice);
   } catch (err) {
     res.status(500).json({ message: err });
   }
@@ -35,6 +36,9 @@ exports.postAds = async (req, res) => {
       aboutSeller,
       userId: req.session.user.id,
     });
+    if (!req.file)
+      return res.status(400).json({ message: 'Image is required' });
+
     await newNotice.save();
     res.json(newNotice);
   } catch (err) {
@@ -47,13 +51,17 @@ exports.deleteAds = async (req, res) => {
   try {
     const notice = await Ads.findById(req.params.id);
 
-    if (!notice) res.status(404).json({ message: 'Not Found' });
+    if (!notice) return res.status(404).json({ message: 'Not Found' });
 
     if (notice.userId.toString() !== req.session.user.id) {
-      return res.status(404).json({ message: 'You are not author ad' });
+      return res.status(403).json({ message: 'You are not author ad' });
     }
+
     await Ads.findByIdAndDelete(req.params.id);
-    res.json({ message: 'Ad deleted success' });
+    if (notice.image) {
+      removeFile({ path: path.join(__dirname, '..', 'uploads', notice.image) });
+    }
+    return res.json({ message: 'Ad deleted success' });
   } catch (err) {
     res.status(500).json({ message: err });
   }
@@ -79,7 +87,9 @@ exports.putAds = async (req, res) => {
     await notice.save();
 
     if (req.file && oldImage) {
-      await removeFile({ path: `./client/public/uploads/${oldImage}` });
+      await removeFile({
+        path: path.join(__dirname, '..', 'uploads', oldImage),
+      });
     }
     res.json(notice);
   } catch (err) {
