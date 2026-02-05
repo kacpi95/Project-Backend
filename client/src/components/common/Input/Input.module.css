@@ -1,15 +1,17 @@
 .defaultInput {
-  width: 40%;
+  width: 100%;
+  max-width: 520px;
   margin: 0 auto;
-  padding: 8px;
-  border-radius: 4px;
-  border: 1px solid var(--primary-color);
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(107, 63, 105, 0.55);
   font-size: 14px;
   box-sizing: border-box;
-  transition: border 0.3s ease;
+  transition: border 0.2s ease;
+  background: #fff;
+  color: #111;
 }
 
 .defaultInput:focus {
   outline: none;
-  border-color: var(--primary-color);
 }

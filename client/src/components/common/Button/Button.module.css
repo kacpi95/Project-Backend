@@ -1,10 +1,23 @@
 .defaultButton {
-  padding: 6px 12px;
+  padding: 10px 14px;
   text-decoration: none;
-  font-weight: bold;
+  font-weight: 700;
   border: 1px solid transparent;
-  border-radius: 4px;
+  border-radius: 10px;
   color: white;
-  letter-spacing: 1px;
-  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+  transition:
+    transform 0.12s ease,
+    background-color 0.2s ease;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.defaultButton:active {
+  transform: translateY(1px);
+}
+
+.defaultButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }

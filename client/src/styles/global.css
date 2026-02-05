@@ -1,15 +1,23 @@
 :root {
   --primary-color: #6b3f69;
   --secondary-color: #ddc3c3;
-  --background-color-pramry: #121a26;
-  --background-color: #8d5f8c;
+  --background-color-primary: #121a26;
   --text-color: #fff;
-  --text-color-secondary: #000000;
+  --text-color-secondary: #0f1115;
+  --card-bg: #fff;
+  --border: rgba(221, 195, 195, 0.18);
 }
 
 body {
-  background-color: #121a26 !important;
+  background-color: var(--background-color-primary) !important;
   margin: 0 !important;
   padding: 0 !important;
   box-sizing: border-box !important;
+  color: var(--text-color);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }

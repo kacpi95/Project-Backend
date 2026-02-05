@@ -1,13 +1,8 @@
 .spinner {
-  background-color: #fff;
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  inset: 0;
+  display: grid;
+  place-items: center;
   background-color: #121a26;
-  z-index: 9999;
+  z-index: 9;
 }
