@@ -1,47 +1,60 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  padding: 20px;
-  border: 1px solid var(--primary-color);
-  border-radius: 8px;
-  background-color: #fff;
+  gap: 12px;
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background-color: var(--card-bg);
 }
 
 .buttons {
   display: flex;
-  margin-top: 10px;
+  margin-top: 8px;
   gap: 10px;
   justify-content: flex-end;
+  flex-wrap: wrap;
 }
 
 .saveBtn {
   background-color: var(--primary-color);
   color: var(--text-color);
+  border: 1px solid transparent;
 }
 
 .saveBtn:hover {
-  background-color: #fff;
+  background-color: transparent;
   color: var(--primary-color);
-  border: 1px solid var(--primary-color);
+  border-color: var(--primary-color);
 }
 
 .cancelBtn {
-  background-color: tomato;
-  color: #fff;
+  background-color: transparent;
+  color: var(--error-color);
+  border: 1px solid rgba(255, 107, 107, 0.55);
 }
 
 .cancelBtn:hover {
-  color: #b71c1c;
-  background-color: #fff;
-  border: 1px solid #b71c1c;
+  background-color: rgba(255, 107, 107, 0.12);
 }
 
 .error {
-  text-align: center;
-  color: #b71c1c;
-  font-size: 15px;
-  font-weight: 500;
-  margin-top: -10px;
-  margin-bottom: 10px;
+  width: 100%;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -6px;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: left;
+  color: var(--error-color);
+}
+
+.imagePreview {
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  overflow: hidden;
 }
