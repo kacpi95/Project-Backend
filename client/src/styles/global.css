@@ -6,6 +6,7 @@
   --text-color-secondary: #0f1115;
   --card-bg: #fff;
   --border: rgba(221, 195, 195, 0.18);
+  --error-color: #ff6b6b;
 }
 
 body {

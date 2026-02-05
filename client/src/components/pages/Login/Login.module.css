@@ -1,59 +1,62 @@
 .container {
   padding: 20px;
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
 }
 
 .header {
-  margin-bottom: 20px;
+  margin: 0 0 16px;
   text-align: center;
   font-size: 28px;
-  font-weight: bold;
+  font-weight: 900;
   color: var(--primary-color);
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  padding: 20px;
-  border: 1px solid var(--primary-color);
-  border-radius: 8px;
-  background-color: #fff;
+  gap: 12px;
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background-color: var(--card-bg);
 }
 
 .buttons {
   display: flex;
-  margin-top: 10px;
+  margin-top: 8px;
   gap: 10px;
   justify-content: flex-end;
+  flex-wrap: wrap;
 }
 
 .saveBtn {
   background-color: var(--primary-color);
   color: var(--text-color);
+  border: 1px solid transparent;
 }
 
 .saveBtn:hover {
-  background-color: #fff;
+  background-color: transparent;
   color: var(--primary-color);
-  border: 1px solid var(--primary-color);
+  border-color: var(--primary-color);
 }
 
 .cancelBtn {
-  background-color: tomato;
-  color: #fff;
+  background-color: transparent;
+  color: var(--error-color);
+  border: 1px solid rgba(255, 107, 107, 0.55);
 }
 
 .cancelBtn:hover {
-  color: #b71c1c;
-  background-color: #fff;
-  border: 1px solid #b71c1c;
+  background-color: rgba(255, 107, 107, 0.12);
+  border-color: rgba(255, 107, 107, 0.9);
 }
+
 .error {
-  margin-bottom: 10px;
+  margin: 0 0 6px;
+  font-size: 13px;
+  color: var(--error-color);
+  font-weight: 800;
   text-align: center;
-  font-size: 15px;
-  color: #b71c1c;
-  font-weight: 500;
 }
