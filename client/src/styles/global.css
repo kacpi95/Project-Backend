@@ -1,19 +1,24 @@
 :root {
-  --primary-color: #6b3f69;
-  --secondary-color: #ddc3c3;
-  --background-color-primary: #121a26;
-  --text-color: #fff;
-  --text-color-secondary: #0f1115;
-  --card-bg: #fff;
-  --border: rgba(221, 195, 195, 0.18);
-  --error-color: #ff6b6b;
+  height: 100vh;
+  --primary-color: #2c7954;
+  --secondary-color: #ffffff;
+
+  --background-gradient: radial-gradient(
+    circle at top,
+    #2c7954 0%,
+    #081f16 70%,
+    #04140d 100%
+  );
+
+  --card-bg: #ffffff;
+  --text-color: #ecfdf5;
+  --text-color-secondary: #052e16;
+  --border: rgba(255, 255, 255, 0.12);
+  --error-color: #fb7185;
 }
 
 body {
-  background-color: var(--background-color-primary) !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  box-sizing: border-box !important;
+  background: var(--background-gradient);
   color: var(--text-color);
 }
 

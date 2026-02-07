@@ -9,7 +9,7 @@
   text-align: center;
   font-size: 28px;
   font-weight: 900;
-  color: var(--primary-color);
+  color: var(--text-color);
 }
 
 .form {
@@ -31,15 +31,15 @@
 }
 
 .saveBtn {
-  background-color: var(--primary-color);
-  color: var(--text-color);
-  border: 1px solid transparent;
-}
-
-.saveBtn:hover {
   background-color: transparent;
   color: var(--primary-color);
   border-color: var(--primary-color);
+}
+
+.saveBtn:hover {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  border: 1px solid transparent;
 }
 
 .cancelBtn {

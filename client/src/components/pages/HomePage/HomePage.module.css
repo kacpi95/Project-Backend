@@ -15,19 +15,19 @@
 .searchInput {
   width: 100%;
   max-width: 420px;
+  border-radius: 6px;
 }
 
 .searchBtn {
-  background-color: var(--primary-color);
+  background-color: rgba(255, 255, 255, 0.226);
+  border: 1px solid white;
   color: var(--text-color);
-  border: 1px solid transparent;
   border-radius: 10px;
 }
 
 .searchBtn:hover {
-  background-color: transparent;
-  color: var(--secondary-color);
-  border-color: var(--secondary-color);
+  background-color: white;
+  color: var(--primary-color);
 }
 
 .grid {
@@ -56,8 +56,7 @@
   border-radius: 14px;
   overflow: hidden;
   background-color: var(--card-bg);
-  transition:
-    transform 0.15s ease,
+  transition: transform 0.15s ease;
 }
 
 .card:hover {
@@ -94,12 +93,13 @@
   transition: all 0.2s ease;
   font-weight: 800;
   border: 1px solid transparent;
-  color: var(--text-color);
-  background-color: var(--primary-color);
+  background-color: transparent;
+  color: var(--primary-color);
+  border-color: var(--primary-color);
 }
 
 .readMore:hover {
-  background-color: transparent;
-  color: var(--primary-color);
+  color: var(--text-color);
+  background-color: var(--primary-color);
   border-color: var(--primary-color);
 }

@@ -103,15 +103,15 @@
 }
 
 .editBtn {
-  background-color: var(--primary-color);
-  color: var(--text-color);
-  border: 1px solid transparent;
-}
-
-.editBtn:hover {
   background-color: transparent;
   color: var(--primary-color);
   border-color: var(--primary-color);
+}
+
+.editBtn:hover {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  border: 1px solid transparent;
 }
 
 .cancelBtn {
