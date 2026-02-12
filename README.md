@@ -140,8 +140,8 @@ client/
 ### 1. Clone repository
 
 ```bash
-git clone https://github.com/kacpi95/Project-Backend.git
-cd Project-Backend
+git clone https://github.com/kacpi95/myads-fullstack.git
+cd myads-fullstack
 ```
 
 ### 2. Backend configuration
