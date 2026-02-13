@@ -13,8 +13,6 @@ Authentication is handled via **session-based authentication using cookies**, wi
 
 **Frontend:**
 
-https://project-backend-1-itrw.onrender.com/
-
 > The app may take a few seconds to load due to Render cold start.
 
 ---
